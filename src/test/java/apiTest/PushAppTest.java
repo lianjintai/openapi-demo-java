@@ -2,6 +2,7 @@ package apiTest;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 import java.util.UUID;
 
 import org.junit.Test;
@@ -9,7 +10,6 @@ import org.junit.Test;
 import com.alibaba.fastjson.JSONObject;
 import com.ljt.openapi.demo.Client;
 import com.ljt.openapi.demo.Request;
-import com.ljt.openapi.demo.Response;
 import com.ljt.openapi.demo.constant.Constants;
 import com.ljt.openapi.demo.constant.ContentType;
 import com.ljt.openapi.demo.constant.HttpHeader;
@@ -31,10 +31,38 @@ import com.ljt.openapi.demo.util.MessageDigestUtil;
  *                      bingo刑天 2016年12月28日 create
  */
 public class PushAppTest {
-  
-  private static String aesKey = "";
-  private static String appKey = "";
-  private static String appSecret = "";
+
+  private static keyProperties keys;
+
+  private static class keyProperties {
+    private String aesKey;
+    private String appKey;
+    private String appSecret;
+
+    public keyProperties() {}
+  }
+
+  /**
+   * 
+   * @Description : 读取配置文件密钥
+   * @return
+   * @throws Exception
+   * @return : keyProperties
+   * @Creation Date : 2017年1月9日 上午10:53:55
+   * @Author : bingo刑天
+   */
+  private static keyProperties getKeys() throws Exception {
+    if (keys == null) {
+      keys = new keyProperties();
+      Properties prop = new Properties();
+      prop.load(
+          Thread.currentThread().getContextClassLoader().getResourceAsStream("keys.properties"));
+      keys.aesKey = prop.getProperty("aesKey");
+      keys.appKey = prop.getProperty("appKey");
+      keys.appSecret = prop.getProperty("appSecret");
+    }
+    return keys;
+  }
 
   /**
    * 
@@ -57,15 +85,15 @@ public class PushAppTest {
     request.setMethod(Method.POST_STRING);
     request.setHost(HttpSchema.HTTPS + ApiHost.DEV_API_HOST.getHost());
     request.setPath("/v1/gateway/" + method);
-    request.setAppKey(appKey);
-    request.setAppSecret(appSecret);
+    request.setAppKey(getKeys().appKey);
+    request.setAppSecret(getKeys().appSecret);
     request.setTimeout(Constants.DEFAULT_TIMEOUT);
     Map<String, String> headers = new HashMap<>();
     headers.put(SystemHeader.X_CA_NONCE, UUID.randomUUID().toString());
     // （必填）根据期望的Response内容类型设置
     headers.put(HttpHeader.HTTP_HEADER_ACCEPT, "application/json");
     // Body MD5,服务端会校验Body内容是否被篡改,建议Body非Form表单时添加此Header
-    requestBody = AESUtil.encrypt(aesKey, requestBody);
+    requestBody = AESUtil.encrypt(getKeys().aesKey, requestBody);
     headers.put(HttpHeader.HTTP_HEADER_CONTENT_MD5, MessageDigestUtil.base64AndMD5(requestBody));
     // （POST/PUT请求必选）请求Body内容格式
     headers.put(HttpHeader.HTTP_HEADER_CONTENT_TYPE, ContentType.CONTENT_TYPE_TEXT);
@@ -251,21 +279,20 @@ public class PushAppTest {
     request.setMethod(Method.POST_STRING);
     request.setHost(HttpSchema.HTTPS + ApiHost.DEV_API_HOST.getHost());
     request.setPath("/v1/gateway/" + method);
-    request.setAppKey(appKey);
-    request.setAppSecret(appSecret);
+    request.setAppKey(getKeys().appKey);
+    request.setAppSecret(getKeys().appSecret);
     request.setTimeout(Constants.DEFAULT_TIMEOUT);
     Map<String, String> headers = new HashMap<>();
     headers.put(SystemHeader.X_CA_NONCE, UUID.randomUUID().toString());
     // （必填）根据期望的Response内容类型设置
     headers.put(HttpHeader.HTTP_HEADER_ACCEPT, "application/json");
     // Body MD5,服务端会校验Body内容是否被篡改,建议Body非Form表单时添加此Header
-    requestBody = AESUtil.encrypt(aesKey, requestBody);
+    requestBody = AESUtil.encrypt(getKeys().aesKey, requestBody);
     headers.put(HttpHeader.HTTP_HEADER_CONTENT_MD5, MessageDigestUtil.base64AndMD5(requestBody));
     // （POST/PUT请求必选）请求Body内容格式
     headers.put(HttpHeader.HTTP_HEADER_CONTENT_TYPE, ContentType.CONTENT_TYPE_TEXT);
     request.setHeaders(headers);
     request.setStringBody(requestBody);
-    Response response = Client.execute(request);
-    System.out.println(response.getStatusCode());
+    Client.execute(request);
   }
 }
