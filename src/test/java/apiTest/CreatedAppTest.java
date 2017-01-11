@@ -1,5 +1,6 @@
 package apiTest;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -58,10 +59,11 @@ public class CreatedAppTest {
    * @return
    * @throws Exception
    * @return : keyProperties
+   * @throws IOException
    * @Creation Date : 2017年1月9日 上午10:53:55
    * @Author : bingo刑天
    */
-  private static keyProperties getKeys() throws Exception {
+  private static keyProperties getKeys() throws IOException {
     if (keys == null) {
       keys = new keyProperties();
       Properties prop = new Properties();

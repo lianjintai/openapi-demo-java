@@ -1,5 +1,6 @@
 package apiTest;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -51,7 +52,7 @@ public class PushAppTest {
    * @Creation Date : 2017年1月9日 上午10:53:55
    * @Author : bingo刑天
    */
-  private static keyProperties getKeys() throws Exception {
+  private static keyProperties getKeys() throws IOException {
     if (keys == null) {
       keys = new keyProperties();
       Properties prop = new Properties();
