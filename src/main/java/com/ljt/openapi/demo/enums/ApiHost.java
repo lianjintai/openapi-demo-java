@@ -12,7 +12,7 @@ package com.ljt.openapi.demo.enums;
  */
 public enum ApiHost {
   DEV_API_HOST("stageapi.lianjintai.com", "测试api地址"), OFFICIAL_API_HOST("api.lianjintai.com",
-      "正式api地址"), LOCALHOST("127.0.0.1:8089", "单机测试地址");
+      "正式api地址"), LOCALHOST("localhost:8089", "单机测试地址");
 
   private String host;
   private String dscp;
