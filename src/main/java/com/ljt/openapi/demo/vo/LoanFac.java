@@ -29,7 +29,7 @@ public class LoanFac {
   /**
    * 业务期限
    */
-  private java.math.BigDecimal tenureAppr;
+  private String tenureAppr;
   /**
    * 到期日
    */
@@ -42,6 +42,7 @@ public class LoanFac {
    * 业务用途
    */
   private List<String> mtFacPurCds;
+  private String mtTimeCd;
 
   public java.lang.String getIsRevolvingAllowed() {
     return isRevolvingAllowed;
@@ -83,11 +84,11 @@ public class LoanFac {
     this.mtRepymtTypCd = mtRepymtTypCd;
   }
 
-  public java.math.BigDecimal getTenureAppr() {
+  public String getTenureAppr() {
     return tenureAppr;
   }
 
-  public void setTenureAppr(java.math.BigDecimal tenureAppr) {
+  public void setTenureAppr(String tenureAppr) {
     this.tenureAppr = tenureAppr;
   }
 
@@ -114,4 +115,13 @@ public class LoanFac {
   public void setMtFacPurCds(List<String> mtFacPurCds) {
     this.mtFacPurCds = mtFacPurCds;
   }
+
+  public String getMtTimeCd() {
+    return mtTimeCd;
+  }
+
+  public void setMtTimeCd(String mtTimeCd) {
+    this.mtTimeCd = mtTimeCd;
+  }
+
 }

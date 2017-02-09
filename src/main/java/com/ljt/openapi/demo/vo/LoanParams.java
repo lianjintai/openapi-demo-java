@@ -7,6 +7,10 @@ import java.util.List;
 
 public class LoanParams {
   /**
+   * 借款人在平台方的客户ID或编号
+   */
+  private String custId;
+  /**
    * 营业执照号码
    */
   private String bizRegNo;
@@ -243,6 +247,14 @@ public class LoanParams {
    */
   private List<LoanCol> colls;
 
+
+  public String getCustId() {
+    return custId;
+  }
+
+  public void setCustId(String custId) {
+    this.custId = custId;
+  }
 
   public String getBizRegNo() {
     return bizRegNo;

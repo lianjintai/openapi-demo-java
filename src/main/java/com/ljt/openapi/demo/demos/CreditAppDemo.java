@@ -179,9 +179,10 @@ public class CreditAppDemo {
   private String loanCpParam() {
     LoanParams loanParams = new LoanParams();
     loanParams.setNm("企业");
+    loanParams.setCustId(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 18));
     loanParams.setIsComb("Y");
     loanParams.setBizRegNo("234353464634563546");
-    loanParams.setIdNo(UUID.randomUUID().toString());
+    loanParams.setIdNo(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 18));
     loanParams.setBrandNm("213123412");
     loanParams.setCoreBiz("手机");
     loanParams.setIsFreeTradeArea("Y");
@@ -232,8 +233,8 @@ public class CreditAppDemo {
   private String loanCifIsBizEntity() {
     LoanParams loanParams = new LoanParams();
     loanParams.setNm("个人私营");
-    loanParams.setIdNo(UUID.randomUUID().toString());
-    System.out.println(loanParams.getIdNo());
+    loanParams.setCustId(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 18));
+    loanParams.setIdNo(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 18));
     loanParams.setMtCityCd("010");
     loanParams.setDtIssue(new Date());
     loanParams.setMtMaritalStsCd("2");
@@ -274,7 +275,8 @@ public class CreditAppDemo {
   private String loanCifIsNotBizEntity() {
     LoanParams loanParams = new LoanParams();
     loanParams.setNm("个人非私营");
-    loanParams.setIdNo(UUID.randomUUID().toString());
+    loanParams.setCustId(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 18));
+    loanParams.setIdNo(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 18));
     loanParams.setMtCityCd("010");
     loanParams.setDtIssue(new Date());
     loanParams.setMtMaritalStsCd("2");
@@ -315,12 +317,13 @@ public class CreditAppDemo {
     loanFac.setLmtAppr(new BigDecimal("123"));
     loanFac.setIntRate(new BigDecimal("123"));
     loanFac.setMtRepymtTypCd("44");
-    loanFac.setTenureAppr(new BigDecimal("133"));
+    loanFac.setTenureAppr("123");
     loanFac.setDtMaturity(new Date());
     loanFac.setMtFacCd("1104");
     List<String> loanFacPurCds = new ArrayList<>();
     loanFacPurCds.add("1132");
     loanFacPurCds.add("2134");
+    loanFac.setMtTimeCd("d");
     loanFac.setMtFacPurCds(loanFacPurCds);
     return loanFac;
   }
