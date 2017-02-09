@@ -223,7 +223,8 @@ public class CreatedAppTest {
   private String loanCifIsBizEntity() {
     LoanParams loanParams = new LoanParams();
     loanParams.setNm("个人私营");
-    loanParams.setIdNo(UUID.randomUUID().toString());
+    loanParams.setCustId(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 18));
+    loanParams.setIdNo(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 18));
     loanParams.setMtCityCd("010");
     loanParams.setDtIssue(new Date());
     loanParams.setMtMaritalStsCd("2");
@@ -264,6 +265,7 @@ public class CreatedAppTest {
   private String loanCifIsNotBizEntity() {
     LoanParams loanParams = new LoanParams();
     loanParams.setNm("个人非私营");
+    loanParams.setCustId(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 18));
     loanParams.setIdNo(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 18));
     loanParams.setMtCityCd("010");
     loanParams.setDtIssue(new Date());
@@ -305,7 +307,8 @@ public class CreatedAppTest {
     loanFac.setLmtAppr(new BigDecimal("123"));
     loanFac.setIntRate(new BigDecimal("123"));
     loanFac.setMtRepymtTypCd("44");
-    loanFac.setTenureAppr(new BigDecimal("133"));
+    loanFac.setTenureAppr("133");
+    loanFac.setMtTimeCd("D");
     loanFac.setDtMaturity(new Date());
     loanFac.setMtFacCd("1104");
     List<String> loanFacPurCds = new ArrayList<>();
