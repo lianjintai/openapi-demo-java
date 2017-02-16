@@ -25,12 +25,14 @@ import com.ljt.openapi.demo.enums.ApiHost;
 import com.ljt.openapi.demo.enums.Method;
 import com.ljt.openapi.demo.util.AESUtil;
 import com.ljt.openapi.demo.util.MessageDigestUtil;
+import com.ljt.openapi.demo.vo.CsCust;
 import com.ljt.openapi.demo.vo.LoanCol;
 import com.ljt.openapi.demo.vo.LoanContact;
-import com.ljt.openapi.demo.vo.LoanEmplymt;
 import com.ljt.openapi.demo.vo.LoanFac;
-import com.ljt.openapi.demo.vo.LoanIndv;
 import com.ljt.openapi.demo.vo.LoanParams;
+import com.ljt.openapi.demo.vo.cs.LoanBase;
+import com.ljt.openapi.demo.vo.cs.LoanEmplymt;
+import com.ljt.openapi.demo.vo.cs.LoanIndv;
 
 /**
  * 
@@ -222,33 +224,37 @@ public class CreatedAppTest {
   @SuppressWarnings("static-access")
   private String loanCifIsBizEntity() {
     LoanParams loanParams = new LoanParams();
-    loanParams.setNm("个人私营");
-    loanParams.setCustId(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 18));
-    loanParams.setIdNo(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 18));
-    loanParams.setMtCityCd("010");
-    loanParams.setDtIssue(new Date());
-    loanParams.setMtMaritalStsCd("2");
-    loanParams.setDtExpiry(new Date());
-    loanParams.setMtGenderCd("M");
-    loanParams.setMtEduLvlCd("001");
-    loanParams.setMtResidenceStsCd("001");
-    loanParams.setIsFamily("Y");
-    loanParams.setMtJobSectorCd("21");
-    loanParams.setMonthlyIncAmt(new BigDecimal("100000"));
-    loanParams.setEmail("123@qq.com");
-    loanParams.setMobileNo("18888888888");
-    loanParams.setMtIndvMobileUsageStsCd("32");
-    loanParams.setQq(12345);
-    loanParams.setWeChat("1234");
-    loanParams.setBankCard(new BigDecimal("1234556565"));
-    loanParams.setCreditCardLines(new BigDecimal("12345"));
-    loanParams.setLoanFixedYear(new BigDecimal("11"));
-    loanParams.setIsBizEntity("Y");
-    loanParams.setIsComb("Y");
-    loanParams.setIndv(loanIndvParam());
+    CsCust cs_cust = new CsCust();
+    LoanBase base = new LoanBase();
+    
+    base.setNm("个人私营");
+    base.setCustId(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 18));
+    base.setIdNo(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 18));
+    base.setMtCityCd("010");
+    base.setDtIssue(new Date());
+    base.setMtMaritalStsCd("2");
+    base.setDtExpiry(new Date());
+    base.setMtGenderCd("M");
+    base.setMtEduLvlCd("001");
+    base.setMtResidenceStsCd("001");
+    base.setIsFamily("Y");
+    base.setMtJobSectorCd("21");
+    base.setMonthlyIncAmt(new BigDecimal("100000"));
+    base.setEmail("123@qq.com");
+    base.setMobileNo("18888888888");
+    base.setMtIndvMobileUsageStsCd("32");
+    base.setQq(12345);
+    base.setWeChat("1234");
+    base.setBankCard(new BigDecimal("1234556565"));
+    base.setCreditCardLines(new BigDecimal("12345"));
+    base.setLoanFixedYear(new BigDecimal("11"));
+    base.setIsBizEntity("Y");
+    cs_cust.setBusiness(loanIndvParam());
+    cs_cust.setBase(base);
+    loanParams.setCs_cust(cs_cust);
     loanParams.setContacts(loanContactParam());
     loanParams.setFac(loanFacParam());
-    loanParams.setColls(loanColParam());
+    loanParams.setCol(loanColParam());
     JSONObject jsob = new JSONObject();
     return jsob.toJSONString(loanParams, SerializerFeature.WriteDateUseDateFormat);
 
@@ -264,32 +270,38 @@ public class CreatedAppTest {
   @SuppressWarnings("static-access")
   private String loanCifIsNotBizEntity() {
     LoanParams loanParams = new LoanParams();
-    loanParams.setNm("个人非私营");
-    loanParams.setCustId(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 18));
-    loanParams.setIdNo(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 18));
-    loanParams.setMtCityCd("010");
-    loanParams.setDtIssue(new Date());
-    loanParams.setMtMaritalStsCd("2");
-    loanParams.setDtExpiry(new Date());
-    loanParams.setMtGenderCd("M");
-    loanParams.setMtEduLvlCd("001");
-    loanParams.setMtResidenceStsCd("001");
-    loanParams.setIsFamily("Y");
-    loanParams.setMtJobSectorCd("21");
-    loanParams.setMonthlyIncAmt(new BigDecimal("100000"));
-    loanParams.setEmail("123@qq.com");
-    loanParams.setMobileNo("18888888888");
-    loanParams.setMtIndvMobileUsageStsCd("32");
-    loanParams.setQq(12345);
-    loanParams.setWeChat("1234");
-    loanParams.setBankCard(new BigDecimal("1234556565"));
-    loanParams.setCreditCardLines(new BigDecimal("12345"));
-    loanParams.setLoanFixedYear(new BigDecimal("11"));
-    loanParams.setIsBizEntity("N");
-    loanParams.setEmplymt(loanEmpParam());
+    
+    CsCust cs_cust = new CsCust();
+    LoanBase base = new LoanBase();
+    
+    base.setNm("个人非私营");
+    base.setCustId(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 18));
+    base.setIdNo(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 18));
+    base.setMtCityCd("010");
+    base.setDtIssue(new Date());
+    base.setMtMaritalStsCd("2");
+    base.setDtExpiry(new Date());
+    base.setMtGenderCd("M");
+    base.setMtEduLvlCd("001");
+    base.setMtResidenceStsCd("001");
+    base.setIsFamily("Y");
+    base.setMtJobSectorCd("21");
+    base.setMonthlyIncAmt(new BigDecimal("100000"));
+    base.setEmail("123@qq.com");
+    base.setMobileNo("18888888888");
+    base.setMtIndvMobileUsageStsCd("32");
+    base.setQq(12345);
+    base.setWeChat("1234");
+    base.setBankCard(new BigDecimal("1234556565"));
+    base.setCreditCardLines(new BigDecimal("12345"));
+    base.setLoanFixedYear(new BigDecimal("11"));
+    base.setIsBizEntity("N");
+    cs_cust.setBase(base);
+    cs_cust.setEmplymt(loanEmpParam());
+    loanParams.setCs_cust(cs_cust);
     loanParams.setContacts(loanContactParam());
     loanParams.setFac(loanFacParam());
-    loanParams.setColls(loanColParam());
+    loanParams.setCol(loanColParam());
     JSONObject jsob = new JSONObject();
     return jsob.toJSONString(loanParams, SerializerFeature.WriteDateUseDateFormat);
   }

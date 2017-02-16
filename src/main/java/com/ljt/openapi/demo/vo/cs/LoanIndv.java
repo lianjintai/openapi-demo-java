@@ -1,11 +1,9 @@
 
-package com.ljt.openapi.demo.vo;
+package com.ljt.openapi.demo.vo.cs;
 
 import java.math.BigDecimal;
 
 public class LoanIndv {
-
-
 
   /**
    * 是否法人
