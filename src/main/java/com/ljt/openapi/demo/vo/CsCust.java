@@ -13,28 +13,33 @@ public class CsCust {
   /**
    * 职位信息
    */
-  private LoanEmplymt emplymt;
+  private LoanEmplymt employ;
   /**
    * 经营信息
    */
   private LoanIndv business;
-  
-  
+
+
   public LoanBase getBase() {
     return base;
   }
+
   public void setBase(LoanBase base) {
     this.base = base;
   }
-  public LoanEmplymt getEmplymt() {
-    return emplymt;
+
+  public LoanEmplymt getEmploy() {
+    return employ;
   }
-  public void setEmplymt(LoanEmplymt emplymt) {
-    this.emplymt = emplymt;
+
+  public void setEmploy(LoanEmplymt employ) {
+    this.employ = employ;
   }
+
   public LoanIndv getBusiness() {
     return business;
   }
+
   public void setBusiness(LoanIndv business) {
     this.business = business;
   }

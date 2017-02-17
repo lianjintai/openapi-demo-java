@@ -226,7 +226,7 @@ public class CreatedAppTest {
     LoanParams loanParams = new LoanParams();
     CsCust cs_cust = new CsCust();
     LoanBase base = new LoanBase();
-    
+
     base.setNm("个人私营");
     base.setCustId(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 18));
     base.setIdNo(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 18));
@@ -270,10 +270,10 @@ public class CreatedAppTest {
   @SuppressWarnings("static-access")
   private String loanCifIsNotBizEntity() {
     LoanParams loanParams = new LoanParams();
-    
+
     CsCust cs_cust = new CsCust();
     LoanBase base = new LoanBase();
-    
+
     base.setNm("个人非私营");
     base.setCustId(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 18));
     base.setIdNo(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 18));
@@ -297,7 +297,7 @@ public class CreatedAppTest {
     base.setLoanFixedYear(new BigDecimal("11"));
     base.setIsBizEntity("N");
     cs_cust.setBase(base);
-    cs_cust.setEmplymt(loanEmpParam());
+    cs_cust.setEmploy(loanEmpParam());
     loanParams.setCs_cust(cs_cust);
     loanParams.setContacts(loanContactParam());
     loanParams.setFac(loanFacParam());

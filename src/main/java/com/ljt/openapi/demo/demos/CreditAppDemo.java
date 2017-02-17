@@ -113,7 +113,7 @@ public class CreditAppDemo {
      * 测试环境，生产环境需要修改为 HttpSchema.HTTPS OFFICIAL_API_HOST
      */
     request.setHost(HttpSchema.HTTPS + ApiHost.DEV_API_HOST.getHost());
-    request.setPath("/v1/openapi/gateway/" + method);
+    request.setPath("/v1/gateway/" + method);
     request.setAppKey(appKey);
     request.setAppSecret(appSecret);
     request.setTimeout(Constants.DEFAULT_TIMEOUT);
@@ -153,7 +153,7 @@ public class CreditAppDemo {
      * 测试环境，生产环境需要修改为 HttpSchema.HTTPS OFFICIAL_API_HOST
      */
     request.setHost(HttpSchema.HTTPS + ApiHost.DEV_API_HOST.getHost());
-    request.setPath("/v1/openapi/gateway/" + method);
+    request.setPath("/v1/gateway/" + method);
     request.setAppKey(appKey);
     request.setAppSecret(appSecret);
     request.setTimeout(Constants.DEFAULT_TIMEOUT);
@@ -185,7 +185,7 @@ public class CreditAppDemo {
     cp_cust.setNm("企业");
     cp_cust.setCustId(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 18));
     cp_cust.setIsComb("Y");
-    cp_cust.setBizRegNo("234353464634563546");
+    cp_cust.setBizRegNo("234353464634563545");
     cp_cust.setIdNo(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 18));
     cp_cust.setBrandNm("213123412");
     cp_cust.setCoreBiz("手机");
@@ -223,8 +223,8 @@ public class CreditAppDemo {
     loanParams.setContacts(loanContactParam());
     loanParams.setFac(loanFacParam());
     loanParams.setCol(loanColParam());
-    JSONObject jsob = new JSONObject();
-    return jsob.toJSONString(loanParams, SerializerFeature.WriteDateUseDateFormat);
+    JSONObject json = new JSONObject();
+    return json.toJSONString(loanParams, SerializerFeature.WriteDateUseDateFormat);
   }
 
   /**
@@ -238,7 +238,7 @@ public class CreditAppDemo {
   private String loanCifIsBizEntity() {
     LoanParams loanParams = new LoanParams();
     CsCust cs_cust = new CsCust();
-    
+
     LoanBase base = new LoanBase();
     base.setNm("个人私营");
     base.setCustId(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 18));
@@ -268,8 +268,8 @@ public class CreditAppDemo {
     loanParams.setContacts(loanContactParam());
     loanParams.setFac(loanFacParam());
     loanParams.setCol(loanColParam());
-    JSONObject jsob = new JSONObject();
-    return jsob.toJSONString(loanParams, SerializerFeature.WriteDateUseDateFormat);
+    JSONObject json = new JSONObject();
+    return json.toJSONString(loanParams, SerializerFeature.WriteDateUseDateFormat);
 
   }
 
@@ -284,7 +284,7 @@ public class CreditAppDemo {
   private String loanCifIsNotBizEntity() {
     LoanParams loanParams = new LoanParams();
     CsCust cs_cust = new CsCust();
-    
+
     LoanBase base = new LoanBase();
     base.setNm("个人非私营");
     base.setCustId(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 18));
@@ -308,14 +308,14 @@ public class CreditAppDemo {
     base.setCreditCardLines(new BigDecimal("12345"));
     base.setLoanFixedYear(new BigDecimal("11"));
     base.setIsBizEntity("N");
-    cs_cust.setEmplymt(loanEmpParam());
+    cs_cust.setEmploy(loanEmpParam());
     cs_cust.setBase(base);
     loanParams.setCs_cust(cs_cust);
     loanParams.setContacts(loanContactParam());
     loanParams.setFac(loanFacParam());
     loanParams.setCol(loanColParam());
-    JSONObject jsob = new JSONObject();
-    return jsob.toJSONString(loanParams, SerializerFeature.WriteDateUseDateFormat);
+    JSONObject json = new JSONObject();
+    return json.toJSONString(loanParams, SerializerFeature.WriteDateUseDateFormat);
   }
 
   /**
