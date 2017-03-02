@@ -245,7 +245,7 @@ public class CreditAppDemo {
     base.setIdNo(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 18));
     base.setMtCityCd("010");
     base.setDtIssue(new Date());
-    base.setMtMaritalStsCd("2");
+    base.setMtMaritalStsCd("02");
     base.setDtExpiry(new Date());
     base.setMtGenderCd("M");
     base.setMtEduLvlCd("001");
@@ -291,7 +291,7 @@ public class CreditAppDemo {
     base.setIdNo(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 18));
     base.setMtCityCd("010");
     base.setDtIssue(new Date());
-    base.setMtMaritalStsCd("2");
+    base.setMtMaritalStsCd("02");
     base.setDtExpiry(new Date());
     base.setMtGenderCd("M");
     base.setMtEduLvlCd("001");
