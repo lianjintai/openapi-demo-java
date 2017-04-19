@@ -376,7 +376,7 @@ public class CreatedAppTest {
   private List<LoanCol> loanColParam() {
     LoanCol loanCol = new LoanCol();
     loanCol.setMtCollTypCd("1102");
-    loanCol.setMtCollTypeCd("11022");
+    loanCol.setMtCollStyleCd("11022");
     loanCol.setCollOwner("所有人");
     loanCol.setCollValue("111111");
     loanCol.setIsDeposit("N");

@@ -21,7 +21,7 @@ public class LoanCol {
   /**
    * 担保方式类型
    */
-  private String mtCollTypeCd;
+  private String mtCollStyleCd;
 
   public String getCollOwner() {
     return collOwner;
@@ -55,13 +55,12 @@ public class LoanCol {
     this.mtCollTypCd = mtCollTypCd;
   }
 
-  public String getMtCollTypeCd() {
-    return mtCollTypeCd;
+  public String getMtCollStyleCd() {
+    return mtCollStyleCd;
   }
 
-  public void setMtCollTypeCd(String mtCollTypeCd) {
-    this.mtCollTypeCd = mtCollTypeCd;
+  public void setMtCollStyleCd(String mtCollStyleCd) {
+    this.mtCollStyleCd = mtCollStyleCd;
   }
-
 
 }
