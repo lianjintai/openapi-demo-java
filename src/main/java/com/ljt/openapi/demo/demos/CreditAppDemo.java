@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.junit.Test;
+
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.ljt.openapi.demo.Client;
@@ -65,9 +67,10 @@ public class CreditAppDemo {
    * @Creation Date : 2016年12月27日 上午11:02:27
    * @Author : bingo刑天
    */
-  // @Test
+  @Test
   public void credateCsAppTest() throws Exception {
     String requestBody = loanCifIsNotBizEntity();
+    System.out.println(requestBody);
     String method = "loan_app:app:create";
     String aesKey = key;
     Request request = new Request();
@@ -102,9 +105,10 @@ public class CreditAppDemo {
    * @Creation Date : 2016年12月27日 上午11:04:27
    * @Author : bingo刑天
    */
-  // @Test
+  @Test
   public void credateCsAppTest2() throws Exception {
     String requestBody = loanCifIsBizEntity();
+    System.out.println(requestBody);
     String method = "loan_app:app:create";
     String aesKey = key;
     Request request = new Request();
@@ -129,9 +133,6 @@ public class CreditAppDemo {
     request.setHeaders(headers);
     request.setStringBody(requestBody);
     Client.execute(request);
-
-
-
   }
 
   /**
@@ -142,9 +143,10 @@ public class CreditAppDemo {
    * @Creation Date : 2016年12月27日 下午3:30:45
    * @Author : bingo刑天
    */
-  // @Test
+  @Test
   public void credateCpAppTest() throws Exception {
     String requestBody = loanCpParam();
+    System.out.println(requestBody);
     String method = "loan_app:app:create";
     String aesKey = key;
     Request request = new Request();
@@ -185,15 +187,15 @@ public class CreditAppDemo {
     cp_cust.setNm("企业");
     cp_cust.setCustId(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 18));
     cp_cust.setIsComb("Y");
-    cp_cust.setBizRegNo("234353464634563545");
+    cp_cust.setBizRegNo(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 15));
     cp_cust.setIdNo(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 18));
     cp_cust.setBrandNm("213123412");
     cp_cust.setCoreBiz("手机");
     cp_cust.setIsFreeTradeArea("Y");
-    cp_cust.setMtCifCatCd("a12");
-    cp_cust.setMtCityCd("020");
-    cp_cust.setMtCorpSalutationCd("123");
-    cp_cust.setMtIndDetailCd("12312");
+    cp_cust.setMtCifCatCd("112");
+    cp_cust.setMtCityCd("110100");
+    cp_cust.setMtCorpSalutationCd("2");
+    cp_cust.setMtIndDetailCd("a0111");
     cp_cust.setWebsite("baidu.com");
     cp_cust.setDtRegistered(new Date());
     cp_cust.setIncomeTaxNo("ds13wqe5");
@@ -203,11 +205,11 @@ public class CreditAppDemo {
     cp_cust.setDtStart(new Date());
     cp_cust.setNoOfBizSite(333);
     cp_cust.setEmployeeCnt(new BigDecimal("12333445"));
-    cp_cust.setMtListedCd("y");
+    cp_cust.setMtListedCd("Y");
     cp_cust.setPaidUpCapital(new BigDecimal("676"));
     cp_cust.setAuthCapital(new BigDecimal("5456"));
     cp_cust.setBizLandArea(4576);
-    cp_cust.setMtBizLandOwnerCd("23");
+    cp_cust.setMtBizLandOwnerCd("2");
     cp_cust.setSaleAmt(new BigDecimal("33"));
     cp_cust.setAssetAmt(new BigDecimal("55"));
     cp_cust.setRatal(new BigDecimal("3"));
@@ -218,7 +220,7 @@ public class CreditAppDemo {
     cp_cust.setSalaryTotal(new BigDecimal("879"));
     cp_cust.setMtSalaryTypCd("3");
     cp_cust.setPrincipalNo("53453");
-    cp_cust.setMtFinInsttnCd("345");
+    cp_cust.setMtFinInsttnCd("02");
     loanParams.setCp_cust(cp_cust);
     loanParams.setContacts(loanContactParam());
     loanParams.setFac(loanFacParam());
@@ -238,24 +240,23 @@ public class CreditAppDemo {
   private String loanCifIsBizEntity() {
     LoanParams loanParams = new LoanParams();
     CsCust cs_cust = new CsCust();
-
     LoanBase base = new LoanBase();
     base.setNm("个人私营");
     base.setCustId(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 18));
     base.setIdNo(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 18));
-    base.setMtCityCd("010");
+    base.setMtCityCd("110100");
     base.setDtIssue(new Date());
     base.setMtMaritalStsCd("02");
     base.setDtExpiry(new Date());
     base.setMtGenderCd("M");
-    base.setMtEduLvlCd("001");
-    base.setMtResidenceStsCd("001");
+    base.setMtEduLvlCd("01");
+    base.setMtResidenceStsCd("01");
     base.setIsFamily("Y");
-    base.setMtJobSectorCd("21");
+    base.setMtJobSectorCd("10000");
     base.setMonthlyIncAmt(new BigDecimal("100000"));
     base.setEmail("123@qq.com");
     base.setMobileNo("18888888888");
-    base.setMtIndvMobileUsageStsCd("32");
+    base.setMtIndvMobileUsageStsCd("01");
     base.setQq(12345);
     base.setWeChat("1234");
     base.setBankCard(new BigDecimal("1234556565"));
@@ -270,7 +271,6 @@ public class CreditAppDemo {
     loanParams.setCol(loanColParam());
     JSONObject json = new JSONObject();
     return json.toJSONString(loanParams, SerializerFeature.WriteDateUseDateFormat);
-
   }
 
   /**
@@ -284,24 +284,23 @@ public class CreditAppDemo {
   private String loanCifIsNotBizEntity() {
     LoanParams loanParams = new LoanParams();
     CsCust cs_cust = new CsCust();
-
     LoanBase base = new LoanBase();
     base.setNm("个人非私营");
     base.setCustId(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 18));
     base.setIdNo(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 18));
-    base.setMtCityCd("010");
+    base.setMtCityCd("110100");
     base.setDtIssue(new Date());
     base.setMtMaritalStsCd("02");
     base.setDtExpiry(new Date());
     base.setMtGenderCd("M");
-    base.setMtEduLvlCd("001");
-    base.setMtResidenceStsCd("001");
+    base.setMtEduLvlCd("01");
+    base.setMtResidenceStsCd("01");
     base.setIsFamily("Y");
-    base.setMtJobSectorCd("21");
+    base.setMtJobSectorCd("10000");
     base.setMonthlyIncAmt(new BigDecimal("100000"));
     base.setEmail("123@qq.com");
     base.setMobileNo("18888888888");
-    base.setMtIndvMobileUsageStsCd("32");
+    base.setMtIndvMobileUsageStsCd("01");
     base.setQq(12345);
     base.setWeChat("1234");
     base.setBankCard(new BigDecimal("1234556565"));
@@ -330,14 +329,14 @@ public class CreditAppDemo {
     loanFac.setIsRevolvingAllowed("Y");
     loanFac.setLmtAppr(new BigDecimal("123"));
     loanFac.setIntRate(new BigDecimal("123"));
-    loanFac.setMtRepymtTypCd("44");
-    loanFac.setTenureAppr("123");
+    loanFac.setMtRepymtTypCd("001");
+    loanFac.setTenureAppr("12");
     loanFac.setDtMaturity(new Date());
-    loanFac.setMtFacCd("1104");
+    loanFac.setMtFacCd("P101");
     List<String> loanFacPurCds = new ArrayList<>();
-    loanFacPurCds.add("1132");
-    loanFacPurCds.add("2134");
-    loanFac.setMtTimeCd("d");
+    loanFacPurCds.add("1001");
+    loanFacPurCds.add("1002");
+    loanFac.setMtTimeCd("D");
     loanFac.setMtFacPurCds(loanFacPurCds);
     return loanFac;
   }
@@ -353,8 +352,8 @@ public class CreditAppDemo {
     LoanEmplymt loanEmplymt = new LoanEmplymt();
     loanEmplymt.setPrevServiceMth(1);
     loanEmplymt.setPrevServiceYr(2);
-    loanEmplymt.setMtPosHeldCd("123");
-    loanEmplymt.setEmployerNm("12345");
+    loanEmplymt.setMtPosHeldCd("001");
+    loanEmplymt.setEmployerNm("单位姓名");
     loanEmplymt.setDtWorkInCurrIndustry(new Date());
     return loanEmplymt;
   }
@@ -372,8 +371,8 @@ public class CreditAppDemo {
     loanContact.setEmail("1233@qq.com");
     loanContact.setMobileNo("13333333333");
     loanContact.setNm("联系人");
-    loanContact.setMtCifContactCd("001");
-    loanContact.setMtPosHeldCd("123");
+    loanContact.setMtCifContactCd("F001");
+    loanContact.setMtPosHeldCd("001");
     contacts.add(loanContact);
     return contacts;
   }
@@ -387,8 +386,8 @@ public class CreditAppDemo {
    */
   private List<LoanCol> loanColParam() {
     LoanCol loanCol = new LoanCol();
-    loanCol.setMtCollTypCd("1102");
-    loanCol.setMtCollStyleCd("11022");
+    loanCol.setMtCollTypCd("DP");
+    loanCol.setMtCollStyleCd("PCOL2");
     loanCol.setCollOwner("所有人");
     loanCol.setCollValue("111111");
     loanCol.setIsDeposit("N");
@@ -408,7 +407,7 @@ public class CreditAppDemo {
     LoanIndv loanIndv = new LoanIndv();
     loanIndv.setBizAddr("北京");
     loanIndv.setBizArea("电子商务");
-    loanIndv.setBizRegNo("999999999999999");
+    loanIndv.setBizRegNo(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 15));
     loanIndv.setCurrentTotal(new BigDecimal("123"));
     loanIndv.setElectricityDosage(new BigDecimal("123"));
     loanIndv.setRatal(new BigDecimal("123"));
@@ -416,9 +415,10 @@ public class CreditAppDemo {
     loanIndv.setEquityLine(new BigDecimal("123"));
     loanIndv.setSalaryTotal(new BigDecimal("123"));
     loanIndv.setIsLegalRep("Y");
-    loanIndv.setMtJobSectorCd("102");
+    loanIndv.setMtJobSectorCd("10000");
     loanIndv.setEmployees("22");
     loanIndv.setWaterDosage(new BigDecimal("123"));
+    loanIndv.setMtIndDetailCd("a0111");
     return loanIndv;
   }
 }

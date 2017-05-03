@@ -59,6 +59,7 @@ public class LoanIndv {
    * 经营范围
    */
   private String bizArea;
+  private String mtIndDetailCd;
 
   public java.lang.String getIsLegalRep() {
     return isLegalRep;
@@ -163,4 +164,13 @@ public class LoanIndv {
   public void setBizArea(String bizArea) {
     this.bizArea = bizArea;
   }
+
+  public String getMtIndDetailCd() {
+    return mtIndDetailCd;
+  }
+
+  public void setMtIndDetailCd(String mtIndDetailCd) {
+    this.mtIndDetailCd = mtIndDetailCd;
+  }
+
 }

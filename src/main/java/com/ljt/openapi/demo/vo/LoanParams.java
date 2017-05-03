@@ -1,11 +1,6 @@
 package com.ljt.openapi.demo.vo;
 
-import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
-
-import com.ljt.openapi.demo.vo.cs.LoanEmplymt;
-import com.ljt.openapi.demo.vo.cs.LoanIndv;
 
 
 public class LoanParams {
