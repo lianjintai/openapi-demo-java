@@ -70,7 +70,6 @@ public class CreditAppDemo {
   @Test
   public void credateCsAppTest() throws Exception {
     String requestBody = loanCifIsNotBizEntity();
-    System.out.println(requestBody);
     String method = "loan_app:app:create";
     String aesKey = key;
     Request request = new Request();
