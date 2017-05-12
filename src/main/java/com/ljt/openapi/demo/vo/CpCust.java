@@ -10,7 +10,7 @@ public class CpCust {
    * 企业名称
    */
   private String nm;
-  
+
   /**
    * 借款人在平台方的客户ID或编号
    */
@@ -155,227 +155,309 @@ public class CpCust {
    * 基本开户行
    */
   private String mtFinInsttnCd;
- 
+  private String portrait;
+
   public String getCustId() {
     return custId;
   }
+
   public void setCustId(String custId) {
     this.custId = custId;
   }
+
   public String getBizRegNo() {
     return bizRegNo;
   }
+
   public void setBizRegNo(String bizRegNo) {
     this.bizRegNo = bizRegNo;
   }
+
   public String getIdNo() {
     return idNo;
   }
+
   public void setIdNo(String idNo) {
     this.idNo = idNo;
   }
+
   public String getIsComb() {
     return isComb;
   }
+
   public void setIsComb(String isComb) {
     this.isComb = isComb;
   }
+
   public String getBrandNm() {
     return brandNm;
   }
+
   public void setBrandNm(String brandNm) {
     this.brandNm = brandNm;
   }
+
   public String getCoreBiz() {
     return coreBiz;
   }
+
   public void setCoreBiz(String coreBiz) {
     this.coreBiz = coreBiz;
   }
+
   public String getIsFreeTradeArea() {
     return isFreeTradeArea;
   }
+
   public void setIsFreeTradeArea(String isFreeTradeArea) {
     this.isFreeTradeArea = isFreeTradeArea;
   }
+
   public String getMtCifCatCd() {
     return mtCifCatCd;
   }
+
   public void setMtCifCatCd(String mtCifCatCd) {
     this.mtCifCatCd = mtCifCatCd;
   }
+
   public String getMtCityCd() {
     return mtCityCd;
   }
+
   public void setMtCityCd(String mtCityCd) {
     this.mtCityCd = mtCityCd;
   }
+
   public String getMtCorpSalutationCd() {
     return mtCorpSalutationCd;
   }
+
   public void setMtCorpSalutationCd(String mtCorpSalutationCd) {
     this.mtCorpSalutationCd = mtCorpSalutationCd;
   }
+
   public String getMtIndDetailCd() {
     return mtIndDetailCd;
   }
+
   public void setMtIndDetailCd(String mtIndDetailCd) {
     this.mtIndDetailCd = mtIndDetailCd;
   }
+
   public String getWebsite() {
     return website;
   }
+
   public void setWebsite(String website) {
     this.website = website;
   }
+
   public Date getDtRegistered() {
     return dtRegistered;
   }
+
   public void setDtRegistered(Date dtRegistered) {
     this.dtRegistered = dtRegistered;
   }
+
   public String getIncomeTaxNo() {
     return incomeTaxNo;
   }
+
   public void setIncomeTaxNo(String incomeTaxNo) {
     this.incomeTaxNo = incomeTaxNo;
   }
+
   public String getNationalTaxNo() {
     return nationalTaxNo;
   }
+
   public void setNationalTaxNo(String nationalTaxNo) {
     this.nationalTaxNo = nationalTaxNo;
   }
+
   public String getRegisteredAddr() {
     return registeredAddr;
   }
+
   public void setRegisteredAddr(String registeredAddr) {
     this.registeredAddr = registeredAddr;
   }
+
   public String getBizAddr() {
     return bizAddr;
   }
+
   public void setBizAddr(String bizAddr) {
     this.bizAddr = bizAddr;
   }
+
   public Date getDtStart() {
     return dtStart;
   }
+
   public void setDtStart(Date dtStart) {
     this.dtStart = dtStart;
   }
+
   public Integer getNoOfBizSite() {
     return noOfBizSite;
   }
+
   public void setNoOfBizSite(Integer noOfBizSite) {
     this.noOfBizSite = noOfBizSite;
   }
+
   public BigDecimal getEmployeeCnt() {
     return employeeCnt;
   }
+
   public void setEmployeeCnt(BigDecimal employeeCnt) {
     this.employeeCnt = employeeCnt;
   }
+
   public String getMtListedCd() {
     return mtListedCd;
   }
+
   public void setMtListedCd(String mtListedCd) {
     this.mtListedCd = mtListedCd;
   }
+
   public BigDecimal getPaidUpCapital() {
     return paidUpCapital;
   }
+
   public void setPaidUpCapital(BigDecimal paidUpCapital) {
     this.paidUpCapital = paidUpCapital;
   }
+
   public BigDecimal getAuthCapital() {
     return authCapital;
   }
+
   public void setAuthCapital(BigDecimal authCapital) {
     this.authCapital = authCapital;
   }
+
   public Integer getBizLandArea() {
     return bizLandArea;
   }
+
   public void setBizLandArea(Integer bizLandArea) {
     this.bizLandArea = bizLandArea;
   }
+
   public String getMtBizLandOwnerCd() {
     return mtBizLandOwnerCd;
   }
+
   public void setMtBizLandOwnerCd(String mtBizLandOwnerCd) {
     this.mtBizLandOwnerCd = mtBizLandOwnerCd;
   }
+
   public BigDecimal getSaleAmt() {
     return saleAmt;
   }
+
   public void setSaleAmt(BigDecimal saleAmt) {
     this.saleAmt = saleAmt;
   }
+
   public BigDecimal getAssetAmt() {
     return assetAmt;
   }
+
   public void setAssetAmt(BigDecimal assetAmt) {
     this.assetAmt = assetAmt;
   }
+
   public BigDecimal getRatal() {
     return ratal;
   }
+
   public void setRatal(BigDecimal ratal) {
     this.ratal = ratal;
   }
+
   public BigDecimal getSocialSecurity() {
     return socialSecurity;
   }
+
   public void setSocialSecurity(BigDecimal socialSecurity) {
     this.socialSecurity = socialSecurity;
   }
+
   public BigDecimal getEquityLine() {
     return equityLine;
   }
+
   public void setEquityLine(BigDecimal equityLine) {
     this.equityLine = equityLine;
   }
+
   public BigDecimal getWaterDosage() {
     return waterDosage;
   }
+
   public void setWaterDosage(BigDecimal waterDosage) {
     this.waterDosage = waterDosage;
   }
+
   public BigDecimal getElectricityDosage() {
     return electricityDosage;
   }
+
   public void setElectricityDosage(BigDecimal electricityDosage) {
     this.electricityDosage = electricityDosage;
   }
+
   public BigDecimal getSalaryTotal() {
     return salaryTotal;
   }
+
   public void setSalaryTotal(BigDecimal salaryTotal) {
     this.salaryTotal = salaryTotal;
   }
+
   public String getMtSalaryTypCd() {
     return mtSalaryTypCd;
   }
+
   public void setMtSalaryTypCd(String mtSalaryTypCd) {
     this.mtSalaryTypCd = mtSalaryTypCd;
   }
+
   public String getPrincipalNo() {
     return principalNo;
   }
+
   public void setPrincipalNo(String principalNo) {
     this.principalNo = principalNo;
   }
+
   public String getMtFinInsttnCd() {
     return mtFinInsttnCd;
   }
+
   public void setMtFinInsttnCd(String mtFinInsttnCd) {
     this.mtFinInsttnCd = mtFinInsttnCd;
   }
+
   public String getNm() {
     return nm;
   }
+
   public void setNm(String nm) {
     this.nm = nm;
+  }
+
+  public String getPortrait() {
+    return portrait;
+  }
+
+  public void setPortrait(String portrait) {
+    this.portrait = portrait;
   }
 }
