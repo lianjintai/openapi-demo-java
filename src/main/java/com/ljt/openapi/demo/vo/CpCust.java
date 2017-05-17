@@ -2,6 +2,7 @@ package com.ljt.openapi.demo.vo;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 public class CpCust {
 
@@ -156,7 +157,9 @@ public class CpCust {
    */
   private String mtFinInsttnCd;
   private String portrait;
+  private List<BizCertificateVO> bizCertificateList;
 
+  
   public String getCustId() {
     return custId;
   }
@@ -460,4 +463,13 @@ public class CpCust {
   public void setPortrait(String portrait) {
     this.portrait = portrait;
   }
+
+  public List<BizCertificateVO> getBizCertificateList() {
+    return bizCertificateList;
+  }
+
+  public void setBizCertificateList(List<BizCertificateVO> bizCertificateList) {
+    this.bizCertificateList = bizCertificateList;
+  }
+  
 }
