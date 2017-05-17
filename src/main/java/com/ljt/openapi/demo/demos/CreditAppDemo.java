@@ -223,13 +223,13 @@ public class CreditAppDemo {
     cp_cust.setPrincipalNo("53453");
     cp_cust.setMtFinInsttnCd("02");
     // 经营许可证
-    List<BizCertificateVO> bizCertificateList = new ArrayList<>();
+    List<BizCertificateVO> bizCertificates = new ArrayList<>();
     BizCertificateVO bizCertificateVO = new BizCertificateVO();
     bizCertificateVO.setDtExpiry(new Date());
     bizCertificateVO.setNo(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 20));// 20位经营许可证编号
     bizCertificateVO.setMtBizCertificateTypCd("00");// 经营许可证类型为：网络文化经营许可证
-    bizCertificateList.add(bizCertificateVO);
-    cp_cust.setBizCertificateList(bizCertificateList);
+    bizCertificates.add(bizCertificateVO);
+    cp_cust.setBizCertificateList(bizCertificates);
 
     Map<Object, Object> jsonMap = new HashMap<>();
     jsonMap.put("企业实力", "世界500强");

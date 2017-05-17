@@ -157,7 +157,7 @@ public class CpCust {
    */
   private String mtFinInsttnCd;
   private String portrait;
-  private List<BizCertificateVO> bizCertificateList;
+  private List<BizCertificateVO> bizCertificates;
 
   
   public String getCustId() {
@@ -464,12 +464,12 @@ public class CpCust {
     this.portrait = portrait;
   }
 
-  public List<BizCertificateVO> getBizCertificateList() {
-    return bizCertificateList;
+  public List<BizCertificateVO> getBizCertificates() {
+    return bizCertificates;
   }
 
-  public void setBizCertificateList(List<BizCertificateVO> bizCertificateList) {
-    this.bizCertificateList = bizCertificateList;
+  public void setBizCertificates(List<BizCertificateVO> bizCertificates) {
+    this.bizCertificates = bizCertificates;
   }
-  
+
 }
