@@ -23,6 +23,7 @@ import com.ljt.openapi.demo.enums.ApiHost;
 import com.ljt.openapi.demo.enums.Method;
 import com.ljt.openapi.demo.util.AESUtil;
 import com.ljt.openapi.demo.util.MessageDigestUtil;
+import com.ljt.openapi.demo.vo.BizCertificateVO;
 import com.ljt.openapi.demo.vo.CpCust;
 import com.ljt.openapi.demo.vo.CsCust;
 import com.ljt.openapi.demo.vo.LoanCol;
@@ -221,6 +222,15 @@ public class CreditAppDemo {
     cp_cust.setMtSalaryTypCd("3");
     cp_cust.setPrincipalNo("53453");
     cp_cust.setMtFinInsttnCd("02");
+    // 经营许可证
+    List<BizCertificateVO> bizCertificates = new ArrayList<>();
+    BizCertificateVO bizCertificateVO = new BizCertificateVO();
+    bizCertificateVO.setDtExpiry(new Date());
+    bizCertificateVO.setNo(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 20));// 20位经营许可证编号
+    bizCertificateVO.setMtBizCertificateTypCd("00");// 经营许可证类型为：网络文化经营许可证
+    bizCertificates.add(bizCertificateVO);
+    cp_cust.setBizCertificates(bizCertificates);
+
     Map<Object, Object> jsonMap = new HashMap<>();
     jsonMap.put("企业实力", "世界500强");
     cp_cust.setPortrait(json.toJSONString(jsonMap));
