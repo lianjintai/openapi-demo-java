@@ -229,7 +229,7 @@ public class CreditAppDemo {
     bizCertificateVO.setNo(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 20));// 20位经营许可证编号
     bizCertificateVO.setMtBizCertificateTypCd("00");// 经营许可证类型为：网络文化经营许可证
     bizCertificates.add(bizCertificateVO);
-    cp_cust.setBizCertificateList(bizCertificates);
+    cp_cust.setBizCertificates(bizCertificates);
 
     Map<Object, Object> jsonMap = new HashMap<>();
     jsonMap.put("企业实力", "世界500强");
