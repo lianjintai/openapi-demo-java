@@ -98,7 +98,6 @@ public class CreditCpRelShareHolderDemo {
    * @Creation Date : 2017年5月26日 下午2:01:19
    * @Author : lcy
    */
-  @SuppressWarnings("static-access")
   private String loanCprelParam() {
     RelCpLoanParam cpLoanParam = new RelCpLoanParam();
     // 基本数据的封装
@@ -115,8 +114,7 @@ public class CreditCpRelShareHolderDemo {
     cpLoanParam.setRelCpsBase(relCpBase);
     // 特有信息的封装
     cpLoanParam.setCpRelInfo(loanCpRelInfo());
-    JSONObject json = new JSONObject();
-    return json.toJSONString(cpLoanParam, SerializerFeature.WriteDateUseDateFormat);
+    return JSONObject.toJSONString(cpLoanParam, SerializerFeature.WriteDateUseDateFormat);
   }
 
   /**
