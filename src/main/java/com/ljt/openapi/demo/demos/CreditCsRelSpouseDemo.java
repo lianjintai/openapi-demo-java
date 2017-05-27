@@ -27,15 +27,13 @@ import com.ljt.openapi.demo.vo.cs.LoanIndv;
 
 /**
  * 
- * @Project       : dcms-openapi-demo
- * @Program Name  : com.ljt.openapi.demo.demos.CreditCsRelSpouseDemo.java
- * @Description   : 创建个贷关联人信息
- * @Author        : bianyan
- * @Creation Date : 2017年5月27日 上午10:19:43 
- * @ModificationHistory  
- * Who          When             What 
- * ----------   -------------    -----------------------------------
- * bianyan     2017年5月27日        create
+ * @Project : dcms-openapi-demo
+ * @Program Name : com.ljt.openapi.demo.demos.CreditCsRelSpouseDemo.java
+ * @Description : 创建配偶关联人信息
+ * @Author : bianyan
+ * @Creation Date : 2017年5月27日 上午10:19:43
+ * @ModificationHistory Who When What ---------- ------------- -----------------------------------
+ *                      bianyan 2017年5月27日 create
  */
 public class CreditCsRelSpouseDemo {
 
@@ -58,10 +56,10 @@ public class CreditCsRelSpouseDemo {
 
   /**
    * 
-   *  @Description	  : 非私营业主测试
-   *  @return         : void
-   *  @Creation Date  : 2017年5月26日 下午4:12:31 
-   *  @Author         : bianyan
+   * @Description : 配偶关联人-非私营业主信息
+   * @return : void
+   * @Creation Date : 2017年5月26日 下午4:12:31
+   * @Author : bianyan
    */
   @Test
   public void createSpouseNotBizTest() throws Exception {
@@ -94,7 +92,7 @@ public class CreditCsRelSpouseDemo {
 
   /**
    * 
-   * @Description : 组装个人非私营业主参数(测试数据)
+   * @Description : 组装配偶关联人非私营业主参数(测试数据)
    * @return : String
    * @Creation Date : 2017年5月26日 下午4:11:50
    * @Author : bianyan
@@ -102,7 +100,7 @@ public class CreditCsRelSpouseDemo {
   private String loanCifIsNotBizEntity() {
     RelCsLoanParam relLoanParams = new RelCsLoanParam();
     CsRelSpouseVO relCsBase = new CsRelSpouseVO();
-    relCsBase.setNm("个人非私营");
+    relCsBase.setNm("配偶关联人非私营业主");
     relCsBase.setAppId("57645243adc3409ea12f0b979d84b48c");
     relCsBase.setMtCifRelCd("II001");
     relCsBase.setDtRegistered(new Date());
@@ -128,7 +126,7 @@ public class CreditCsRelSpouseDemo {
     relLoanParams.setRelCsEmploy(loanEmpParam());
     return JSONObject.toJSONString(relLoanParams, SerializerFeature.WriteDateUseDateFormat);
   }
-  
+
   /**
    * 
    * @Description : 职位信息参数(测试数据)
@@ -145,14 +143,13 @@ public class CreditCsRelSpouseDemo {
     loanEmplymt.setDtWorkInCurrIndustry(new Date());
     return loanEmplymt;
   }
-  
+
   /**
    * 
-   * @Description : 个人推贷私营业主申请Demo
-   * @throws Exception
+   * @Description : 配偶关联人-私营业主信息
    * @return : void
-   * @Creation Date : 2016年12月27日 上午11:04:27
-   * @Author : bingo刑天
+   * @Creation Date : 2017年5月27日 下午3:51:50
+   * @Author : bianyan
    */
   @Test
   public void loanCifIsBizEntityTest() throws Exception {
@@ -185,15 +182,15 @@ public class CreditCsRelSpouseDemo {
 
   /**
    * 
-   *  @Description	  : 组装私营业主参数(测试数据)
-   *  @return         : String
-   *  @Creation Date  : 2017年5月27日 上午10:32:54 
-   *  @Author         : bianyan
+   * @Description : 组装私营业主参数(测试数据)
+   * @return : String
+   * @Creation Date : 2017年5月27日 上午10:32:54
+   * @Author : bianyan
    */
   private String loanCifIsBizEntity() {
     RelCsLoanParam relLoanParams = new RelCsLoanParam();
     CsRelSpouseVO relCsBase = new CsRelSpouseVO();
-    relCsBase.setNm("个人私营");
+    relCsBase.setNm("配偶关联人私营业主");
     relCsBase.setAppId("57645243adc3409ea12f0b979d84b48c");
     relCsBase.setMtCifRelCd("II001");
     relCsBase.setIdNo("11511188888999999");
@@ -219,14 +216,14 @@ public class CreditCsRelSpouseDemo {
     relLoanParams.setRelCsBusiness(loanIndvParam());
     return JSONObject.toJSONString(relLoanParams, SerializerFeature.WriteDateUseDateFormat);
   }
-  
-  
+
+
   /**
    * 
-   *  @Description	  : 私营业主信息(测试数据)
-   *  @return         : LoanIndv
-   *  @Creation Date  : 2017年5月27日 上午10:35:21 
-   *  @Author         : bianyan
+   * @Description : 私营业主信息(测试数据)
+   * @return : LoanIndv
+   * @Creation Date : 2017年5月27日 上午10:35:21
+   * @Author : bianyan
    */
   private LoanIndv loanIndvParam() {
     LoanIndv loanIndv = new LoanIndv();
