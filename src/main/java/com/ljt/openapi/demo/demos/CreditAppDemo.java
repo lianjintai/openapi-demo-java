@@ -1,15 +1,5 @@
 package com.ljt.openapi.demo.demos;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
-import org.junit.Test;
-
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.ljt.openapi.demo.Client;
@@ -23,6 +13,7 @@ import com.ljt.openapi.demo.enums.ApiHost;
 import com.ljt.openapi.demo.enums.Method;
 import com.ljt.openapi.demo.util.AESUtil;
 import com.ljt.openapi.demo.util.MessageDigestUtil;
+import com.ljt.openapi.demo.util.PropertiesUtils;
 import com.ljt.openapi.demo.vo.CpCust;
 import com.ljt.openapi.demo.vo.CsCust;
 import com.ljt.openapi.demo.vo.LoanCol;
@@ -32,6 +23,13 @@ import com.ljt.openapi.demo.vo.LoanParams;
 import com.ljt.openapi.demo.vo.cs.LoanBase;
 import com.ljt.openapi.demo.vo.cs.LoanEmplymt;
 import com.ljt.openapi.demo.vo.cs.LoanIndv;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * 
@@ -44,21 +42,18 @@ import com.ljt.openapi.demo.vo.cs.LoanIndv;
  *                      bingo刑天 2016年12月28日 create
  */
 public class CreditAppDemo {
-  /********************* 以下信息请换成您获取到的密钥 **********************************/
   /**
    * aes加密密钥
    */
-  private String key = "";
+  private String key = PropertiesUtils.getAESKey();
   /**
    * 产品Key
    */
-  private String appKey = "";
+  private String appKey = PropertiesUtils.getAppKey();
   /**
    * 产品密钥
    */
-  private String appSecret = "";
-
-  /********************* 以上信息请换成您获取到的密钥 **********************************/
+  private String appSecret = PropertiesUtils.getAppSecret();
   /**
    * 
    * @Description : 个人推贷非私营业主申请Demo
@@ -67,7 +62,6 @@ public class CreditAppDemo {
    * @Creation Date : 2016年12月27日 上午11:02:27
    * @Author : bingo刑天
    */
-  @Test
   public void credateCsAppTest() throws Exception {
     String requestBody = loanCifIsNotBizEntity();
     System.out.println(requestBody);
@@ -105,7 +99,6 @@ public class CreditAppDemo {
    * @Creation Date : 2016年12月27日 上午11:04:27
    * @Author : bingo刑天
    */
-  @Test
   public void credateCsAppTest2() throws Exception {
     String requestBody = loanCifIsBizEntity();
     System.out.println(requestBody);
@@ -143,7 +136,6 @@ public class CreditAppDemo {
    * @Creation Date : 2016年12月27日 下午3:30:45
    * @Author : bingo刑天
    */
-  @Test
   public void credateCpAppTest() throws Exception {
     String requestBody = loanCpParam();
     System.out.println(requestBody);

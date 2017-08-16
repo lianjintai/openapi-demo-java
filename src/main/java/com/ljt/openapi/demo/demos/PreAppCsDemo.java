@@ -1,8 +1,10 @@
 package com.ljt.openapi.demo.demos;
 
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.ljt.openapi.demo.Client;
 import com.ljt.openapi.demo.Request;
+import com.ljt.openapi.demo.Response;
 import com.ljt.openapi.demo.constant.Constants;
 import com.ljt.openapi.demo.constant.ContentType;
 import com.ljt.openapi.demo.constant.HttpHeader;
@@ -13,21 +15,17 @@ import com.ljt.openapi.demo.enums.Method;
 import com.ljt.openapi.demo.util.AESUtil;
 import com.ljt.openapi.demo.util.MessageDigestUtil;
 import com.ljt.openapi.demo.util.PropertiesUtils;
+import com.ljt.openapi.demo.vo.PreAppCsVO;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 /**
- * 
- * @Project : dcms-openapi-demo
- * @Program Name : com.ljt.openapi.demo.demos.PushAppDemo.java
- * @Description : 推贷申请推送demo
- * @Author : bingo刑天
- * @Creation Date : 2016年12月28日 下午4:47:19
- * @ModificationHistory Who When What ---------- ------------- -----------------------------------
- *                      bingo刑天 2016年12月28日 create
+ * 预申请demo
  */
-public class PushAppDemo {
+public class PreAppCsDemo {
+
   /**
    * aes加密密钥
    */
@@ -41,13 +39,13 @@ public class PushAppDemo {
    */
   private String appSecret = PropertiesUtils.getAppSecret();
 
-  public void pustAppDemo() throws Exception {
+
+  public void postAppDemo() throws Exception {
     Map<String, String> paraMap = new HashMap<>();
     paraMap.put("app_id", "8e032fb4882049a19e0c039260864898");
     paraMap.put("mt_app_type_cd", "CS_PUSH_APP");
-    JSONObject jsob = new JSONObject();
-    String requestBody = jsob.toJSONString(paraMap);
-    String method = "loan_app:app:push";
+    String requestBody = getRequestBody();
+    String method = "loan_app:cs_pre_app:create";
     String aesKey = key;
     Request request = new Request();
     request.setMethod(Method.POST_STRING);
@@ -60,7 +58,7 @@ public class PushAppDemo {
     request.setAppSecret(appSecret);
     request.setTimeout(Constants.DEFAULT_TIMEOUT);
     Map<String, String> headers = new HashMap<>();
-    headers.put(SystemHeader.X_CA_NONCE, UUID.randomUUID().toString());
+    headers.put(SystemHeader.X_CA_NONCE, UUID.randomUUID().toString() + System.currentTimeMillis());
     // （必填）根据期望的Response内容类型设置
     headers.put(HttpHeader.HTTP_HEADER_ACCEPT, "application/json");
     // Body MD5,服务端会校验Body内容是否被篡改,建议Body非Form表单时添加此Header
@@ -70,6 +68,39 @@ public class PushAppDemo {
     headers.put(HttpHeader.HTTP_HEADER_CONTENT_TYPE, ContentType.CONTENT_TYPE_TEXT);
     request.setHeaders(headers);
     request.setStringBody(requestBody);
-    Client.execute(request);
+    Response response = Client.execute(request);
+    if (response.getStatusCode() == 200) {
+      System.out
+          .println("response=" + AESUtil.decrypt(response.getBody(), PropertiesUtils.getAESKey()));
+    }
+  }
+
+  public String getRequestBody() {
+    PreAppCsVO preAppCsVO = new PreAppCsVO();
+    preAppCsVO.setCustId("123333321");
+    preAppCsVO.setNm("张三");
+    preAppCsVO.setIdNo("114897197912191924");
+    preAppCsVO.setMtGenderCd("F");
+    preAppCsVO.setMtMaritalStsCd("01");
+
+    preAppCsVO.setMtEduLvlCd("02");
+    preAppCsVO.setMtResidenceStsCd("001");
+    preAppCsVO.setIsFamily("Y");
+    preAppCsVO.setMtJobSectorCd("001");
+
+    preAppCsVO.setMtCityCd("110100");
+
+    preAppCsVO.setMobileNo("13853577894");
+    preAppCsVO.setCreditCardLines(BigDecimal.TEN);
+
+    preAppCsVO.setPortrait("{\"芝麻评分\":\"698\"}");
+
+    preAppCsVO.setLmtAppr(new BigDecimal("12345.67"));
+    preAppCsVO.setTenureAppr(new BigDecimal(12));
+    preAppCsVO.setMtTimeCd("M");
+    preAppCsVO.setIntRate(new BigDecimal("5.1"));
+
+    JSONObject json = new JSONObject();
+    return json.toJSONString(preAppCsVO, SerializerFeature.WriteDateUseDateFormat);
   }
 }
