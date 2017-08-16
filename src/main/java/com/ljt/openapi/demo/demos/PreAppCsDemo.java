@@ -58,7 +58,7 @@ public class PreAppCsDemo {
     request.setAppSecret(appSecret);
     request.setTimeout(Constants.DEFAULT_TIMEOUT);
     Map<String, String> headers = new HashMap<>();
-    headers.put(SystemHeader.X_CA_NONCE, UUID.randomUUID().toString() + System.currentTimeMillis());
+    headers.put(SystemHeader.X_CA_NONCE, UUID.randomUUID().toString());
     // （必填）根据期望的Response内容类型设置
     headers.put(HttpHeader.HTTP_HEADER_ACCEPT, "application/json");
     // Body MD5,服务端会校验Body内容是否被篡改,建议Body非Form表单时添加此Header
