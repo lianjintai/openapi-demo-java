@@ -1,17 +1,5 @@
 package apiTest;
 
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.UUID;
-
-import org.junit.Test;
-
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.ljt.openapi.demo.Client;
@@ -25,6 +13,7 @@ import com.ljt.openapi.demo.enums.ApiHost;
 import com.ljt.openapi.demo.enums.Method;
 import com.ljt.openapi.demo.util.AESUtil;
 import com.ljt.openapi.demo.util.MessageDigestUtil;
+import com.ljt.openapi.demo.util.PropertiesUtils;
 import com.ljt.openapi.demo.vo.CpCust;
 import com.ljt.openapi.demo.vo.CsCust;
 import com.ljt.openapi.demo.vo.LoanCol;
@@ -34,6 +23,14 @@ import com.ljt.openapi.demo.vo.LoanParams;
 import com.ljt.openapi.demo.vo.cs.LoanBase;
 import com.ljt.openapi.demo.vo.cs.LoanEmplymt;
 import com.ljt.openapi.demo.vo.cs.LoanIndv;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import org.junit.Test;
 
 /**
  * 
@@ -46,38 +43,6 @@ import com.ljt.openapi.demo.vo.cs.LoanIndv;
  *                      bingo刑天 2016年12月28日 create
  */
 public class CreatedAppTest {
-  private static keyProperties keys;
-
-  private static class keyProperties {
-    private String aesKey;
-    private String appKey;
-    private String appSecret;
-
-    public keyProperties() {}
-  }
-
-  /**
-   * 
-   * @Description : 读取配置文件密钥
-   * @return
-   * @throws Exception
-   * @return : keyProperties
-   * @throws IOException
-   * @Creation Date : 2017年1月9日 上午10:53:55
-   * @Author : bingo刑天
-   */
-  private static keyProperties getKeys() throws IOException {
-    if (keys == null) {
-      keys = new keyProperties();
-      Properties prop = new Properties();
-      prop.load(
-          Thread.currentThread().getContextClassLoader().getResourceAsStream("keys.properties"));
-      keys.aesKey = prop.getProperty("aesKey");
-      keys.appKey = prop.getProperty("appKey");
-      keys.appSecret = prop.getProperty("appSecret");
-    }
-    return keys;
-  }
 
   /**
    * 
@@ -95,15 +60,15 @@ public class CreatedAppTest {
     request.setMethod(Method.POST_STRING);
     request.setHost(HttpSchema.HTTPS + ApiHost.DEV_API_HOST.getHost());
     request.setPath("/v1/gateway/" + method);
-    request.setAppKey(getKeys().appKey);
-    request.setAppSecret(getKeys().appSecret);
+    request.setAppKey(PropertiesUtils.getAppKey());
+    request.setAppSecret(PropertiesUtils.getAppSecret());
     request.setTimeout(Constants.DEFAULT_TIMEOUT);
     Map<String, String> headers = new HashMap<>();
     headers.put(SystemHeader.X_CA_NONCE, UUID.randomUUID().toString());
     // （必填）根据期望的Response内容类型设置
     headers.put(HttpHeader.HTTP_HEADER_ACCEPT, "application/json");
     // Body MD5,服务端会校验Body内容是否被篡改,建议Body非Form表单时添加此Header
-    requestBody = AESUtil.encrypt(getKeys().aesKey, requestBody);
+    requestBody = AESUtil.encrypt(PropertiesUtils.getAESKey(), requestBody);
     headers.put(HttpHeader.HTTP_HEADER_CONTENT_MD5, MessageDigestUtil.base64AndMD5(requestBody));
     // （POST/PUT请求必选）请求Body内容格式
     headers.put(HttpHeader.HTTP_HEADER_CONTENT_TYPE, ContentType.CONTENT_TYPE_TEXT);

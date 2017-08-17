@@ -1,9 +1,5 @@
 package com.ljt.openapi.demo.demos;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-
 import com.alibaba.fastjson.JSONObject;
 import com.ljt.openapi.demo.Client;
 import com.ljt.openapi.demo.Request;
@@ -16,6 +12,10 @@ import com.ljt.openapi.demo.enums.ApiHost;
 import com.ljt.openapi.demo.enums.Method;
 import com.ljt.openapi.demo.util.AESUtil;
 import com.ljt.openapi.demo.util.MessageDigestUtil;
+import com.ljt.openapi.demo.util.PropertiesUtils;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * 
@@ -28,21 +28,19 @@ import com.ljt.openapi.demo.util.MessageDigestUtil;
  *                      bingo刑天 2016年12月28日 create
  */
 public class GetAppStsDemo {
-  /********************* 以下信息请换成您获取到的密钥 **********************************/
+
   /**
    * aes加密密钥
    */
-  private String key = "";
+  private String key = PropertiesUtils.getAESKey();
   /**
    * 产品Key
    */
-  private String appKey = "";
+  private String appKey = PropertiesUtils.getAppKey();
   /**
    * 产品密钥
    */
-  private String appSecret = "";
-
-  /********************* 以上信息请换成您获取到的密钥 **********************************/
+  private String appSecret = PropertiesUtils.getAppSecret();
   /**
    * 
    * @Description : 根据appId查询申请状态

@@ -1,13 +1,5 @@
 package apiTest;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-import java.util.UUID;
-
-import org.junit.Test;
-
 import com.alibaba.fastjson.JSONObject;
 import com.ljt.openapi.demo.Client;
 import com.ljt.openapi.demo.Request;
@@ -20,56 +12,27 @@ import com.ljt.openapi.demo.enums.ApiHost;
 import com.ljt.openapi.demo.enums.Method;
 import com.ljt.openapi.demo.util.AESUtil;
 import com.ljt.openapi.demo.util.MessageDigestUtil;
+import com.ljt.openapi.demo.util.PropertiesUtils;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+import org.junit.Test;
 
 
 /**
- * 
  * @Project : dcms-openapi-demo
  * @Program Name : com.ljt.openapi.demo.demos.GetAppStsDemo.java
  * @Description : 查看申请状态demo
  * @Author : bingo刑天
  * @Creation Date : 2016年12月28日 下午4:48:02
  * @ModificationHistory Who When What ---------- ------------- -----------------------------------
- *                      bingo刑天 2016年12月28日 create
+ * bingo刑天 2016年12月28日 create
  */
 public class GetAppStsTest {
-  private static keyProperties keys;
-
-  private static class keyProperties {
-    private String aesKey;
-    private String appKey;
-    private String appSecret;
-
-    public keyProperties() {}
-  }
 
   /**
-   * 
-   * @Description : 读取配置文件密钥
-   * @return
-   * @throws Exception
-   * @return : keyProperties
-   * @Creation Date : 2017年1月9日 上午10:53:55
-   * @Author : bingo刑天
-   */
-  private static keyProperties getKeys() throws IOException {
-    if (keys == null) {
-      keys = new keyProperties();
-      Properties prop = new Properties();
-      prop.load(
-          Thread.currentThread().getContextClassLoader().getResourceAsStream("keys.properties"));
-      keys.aesKey = prop.getProperty("aesKey");
-      keys.appKey = prop.getProperty("appKey");
-      keys.appSecret = prop.getProperty("appSecret");
-    }
-    return keys;
-  }
-
-  /**
-   * 
-   * @Description : 正例测试获取申请状态 依赖于正确app_id,所以未对http状态进行断言
-   * @throws Exception
    * @return : void
+   * @Description : 正例测试获取申请状态 依赖于正确app_id,所以未对http状态进行断言
    * @Creation Date : 2017年1月4日 上午10:27:26
    * @Author : bingo刑天
    */
@@ -86,15 +49,17 @@ public class GetAppStsTest {
     request.setMethod(Method.POST_STRING);
     request.setHost(HttpSchema.HTTPS + ApiHost.DEV_API_HOST.getHost());
     request.setPath("/v1/gateway/" + method);
-    request.setAppKey(getKeys().appKey);
-    request.setAppSecret(getKeys().appSecret);
+
+    request.setAppKey(PropertiesUtils.getAppKey());
+    request.setAppSecret(PropertiesUtils.getAppSecret());
     request.setTimeout(Constants.DEFAULT_TIMEOUT);
     Map<String, String> headers = new HashMap<>();
     headers.put(SystemHeader.X_CA_NONCE, UUID.randomUUID().toString());
     // （必填）根据期望的Response内容类型设置
     headers.put(HttpHeader.HTTP_HEADER_ACCEPT, "application/json");
     // Body MD5,服务端会校验Body内容是否被篡改,建议Body非Form表单时添加此Header
-    requestBody = AESUtil.encrypt(getKeys().aesKey, requestBody);
+
+    requestBody = AESUtil.encrypt(PropertiesUtils.getAESKey(), requestBody);
     headers.put(HttpHeader.HTTP_HEADER_CONTENT_MD5, MessageDigestUtil.base64AndMD5(requestBody));
     // （POST/PUT请求必选）请求Body内容格式
     headers.put(HttpHeader.HTTP_HEADER_CONTENT_TYPE, ContentType.CONTENT_TYPE_TEXT);
@@ -104,10 +69,8 @@ public class GetAppStsTest {
   }
 
   /**
-   * 
-   * @Description : 反例测试无产品密钥
-   * @throws Exception
    * @return : void
+   * @Description : 反例测试无产品密钥
    * @Creation Date : 2017年1月3日 下午2:56:18
    * @Author : bingo刑天
    */
@@ -143,10 +106,8 @@ public class GetAppStsTest {
   }
 
   /**
-   * 
-   * @Description : 反例测试无appKey
-   * @throws Exception
    * @return : void
+   * @Description : 反例测试无appKey
    * @Creation Date : 2017年1月3日 下午2:56:44
    * @Author : bingo刑天
    */
@@ -182,10 +143,8 @@ public class GetAppStsTest {
   }
 
   /**
-   * 
-   * @Description : 反例测试无aeskey
-   * @throws Exception
    * @return : void
+   * @Description : 反例测试无aeskey
    * @Creation Date : 2017年1月3日 下午2:57:00
    * @Author : bingo刑天
    */
@@ -221,10 +180,8 @@ public class GetAppStsTest {
   }
 
   /**
-   * 
-   * @Description : 反例测试aeskey格式错误
-   * @throws Exception
    * @return : void
+   * @Description : 反例测试aeskey格式错误
    * @Creation Date : 2017年1月3日 下午2:57:00
    * @Author : bingo刑天
    */
@@ -260,10 +217,8 @@ public class GetAppStsTest {
   }
 
   /**
-   * 
-   * @Description : 反例测试app_id不存在
-   * @throws Exception
    * @return : void
+   * @Description : 反例测试app_id不存在
    * @Creation Date : 2017年1月3日 下午4:21:02
    * @Author : bingo刑天
    */
@@ -280,15 +235,15 @@ public class GetAppStsTest {
     request.setMethod(Method.POST_STRING);
     request.setHost(HttpSchema.HTTPS + ApiHost.DEV_API_HOST.getHost());
     request.setPath("/v1/gateway/" + method);
-    request.setAppKey(getKeys().appKey);
-    request.setAppSecret(getKeys().appSecret);
+    request.setAppKey(PropertiesUtils.getAppKey());
+    request.setAppSecret(PropertiesUtils.getAppSecret());
     request.setTimeout(Constants.DEFAULT_TIMEOUT);
     Map<String, String> headers = new HashMap<>();
     headers.put(SystemHeader.X_CA_NONCE, UUID.randomUUID().toString());
     // （必填）根据期望的Response内容类型设置
     headers.put(HttpHeader.HTTP_HEADER_ACCEPT, "application/json");
     // Body MD5,服务端会校验Body内容是否被篡改,建议Body非Form表单时添加此Header
-    requestBody = AESUtil.encrypt(getKeys().aesKey, requestBody);
+    requestBody = AESUtil.encrypt(PropertiesUtils.getAESKey(), requestBody);
     headers.put(HttpHeader.HTTP_HEADER_CONTENT_MD5, MessageDigestUtil.base64AndMD5(requestBody));
     // （POST/PUT请求必选）请求Body内容格式
     headers.put(HttpHeader.HTTP_HEADER_CONTENT_TYPE, ContentType.CONTENT_TYPE_TEXT);
@@ -298,10 +253,8 @@ public class GetAppStsTest {
   }
 
   /**
-   * 
-   * @Description : 反例，申请id错误
-   * @throws Exception
    * @return : void
+   * @Description : 反例，申请id错误
    * @Creation Date : 2017年1月4日 上午10:28:14
    * @Author : bingo刑天
    */
@@ -318,15 +271,16 @@ public class GetAppStsTest {
     request.setMethod(Method.POST_STRING);
     request.setHost(HttpSchema.HTTPS + ApiHost.DEV_API_HOST.getHost());
     request.setPath("/v1/gateway/" + method);
-    request.setAppKey(getKeys().appKey);
-    request.setAppSecret(getKeys().appSecret);
+    request.setAppKey(PropertiesUtils.getAppKey());
+    request.setAppSecret(PropertiesUtils.getAppSecret());
     request.setTimeout(Constants.DEFAULT_TIMEOUT);
     Map<String, String> headers = new HashMap<>();
     headers.put(SystemHeader.X_CA_NONCE, UUID.randomUUID().toString());
     // （必填）根据期望的Response内容类型设置
     headers.put(HttpHeader.HTTP_HEADER_ACCEPT, "application/json");
     // Body MD5,服务端会校验Body内容是否被篡改,建议Body非Form表单时添加此Header
-    requestBody = AESUtil.encrypt(getKeys().aesKey, requestBody);
+
+    requestBody = AESUtil.encrypt(PropertiesUtils.getAESKey(), requestBody);
     headers.put(HttpHeader.HTTP_HEADER_CONTENT_MD5, MessageDigestUtil.base64AndMD5(requestBody));
     // （POST/PUT请求必选）请求Body内容格式
     headers.put(HttpHeader.HTTP_HEADER_CONTENT_TYPE, ContentType.CONTENT_TYPE_TEXT);
