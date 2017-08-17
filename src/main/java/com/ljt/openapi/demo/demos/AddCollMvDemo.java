@@ -24,6 +24,7 @@ import com.ljt.openapi.demo.enums.ApiHost;
 import com.ljt.openapi.demo.enums.Method;
 import com.ljt.openapi.demo.util.AESUtil;
 import com.ljt.openapi.demo.util.MessageDigestUtil;
+import com.ljt.openapi.demo.util.PropertiesUtils;
 import com.ljt.openapi.demo.vo.AppCollEvaluateVO;
 import com.ljt.openapi.demo.vo.AppCollMvApiVO;
 import com.ljt.openapi.demo.vo.AppCollOwnerVO;
@@ -47,15 +48,15 @@ public class AddCollMvDemo {
   /**
    * aes加密密钥
    */
-  private String key = "";
+  private String key = PropertiesUtils.getAESKey();
   /**
    * 产品Key
    */
-  private String appKey = "";
+  private String appKey = PropertiesUtils.getAppKey();
   /**
    * 产品密钥
    */
-  private String appSecret = "";
+  private String appSecret = PropertiesUtils.getAppSecret();
 
   /**
    * @Description : 财报上传demo
