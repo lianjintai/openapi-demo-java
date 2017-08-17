@@ -13,6 +13,7 @@ import com.ljt.openapi.demo.enums.ApiHost;
 import com.ljt.openapi.demo.enums.Method;
 import com.ljt.openapi.demo.util.AESUtil;
 import com.ljt.openapi.demo.util.MessageDigestUtil;
+import com.ljt.openapi.demo.vo.BizCertificateVO;
 import com.ljt.openapi.demo.util.PropertiesUtils;
 import com.ljt.openapi.demo.vo.CpCust;
 import com.ljt.openapi.demo.vo.CsCust;
@@ -64,7 +65,6 @@ public class CreditAppDemo {
    */
   public void credateCsAppTest() throws Exception {
     String requestBody = loanCifIsNotBizEntity();
-    System.out.println(requestBody);
     String method = "loan_app:app:create";
     String aesKey = key;
     Request request = new Request();
@@ -175,6 +175,7 @@ public class CreditAppDemo {
   @SuppressWarnings("static-access")
   private String loanCpParam() {
     LoanParams loanParams = new LoanParams();
+    JSONObject json = new JSONObject();
     CpCust cp_cust = new CpCust();
     cp_cust.setNm("企业");
     cp_cust.setCustId(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 18));
@@ -213,11 +214,22 @@ public class CreditAppDemo {
     cp_cust.setMtSalaryTypCd("3");
     cp_cust.setPrincipalNo("53453");
     cp_cust.setMtFinInsttnCd("02");
+    // 经营许可证
+    List<BizCertificateVO> bizCertificates = new ArrayList<>();
+    BizCertificateVO bizCertificateVO = new BizCertificateVO();
+    bizCertificateVO.setDtExpiry(new Date());
+    bizCertificateVO.setNo(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 20));// 20位经营许可证编号
+    bizCertificateVO.setMtBizCertificateTypCd("00");// 经营许可证类型为：网络文化经营许可证
+    bizCertificates.add(bizCertificateVO);
+    cp_cust.setBizCertificates(bizCertificates);
+
+    Map<Object, Object> jsonMap = new HashMap<>();
+    jsonMap.put("企业实力", "世界500强");
+    cp_cust.setPortrait(json.toJSONString(jsonMap));
     loanParams.setCp_cust(cp_cust);
     loanParams.setContacts(loanContactParam());
     loanParams.setFac(loanFacParam());
     loanParams.setCol(loanColParam());
-    JSONObject json = new JSONObject();
     return json.toJSONString(loanParams, SerializerFeature.WriteDateUseDateFormat);
   }
 
@@ -231,6 +243,7 @@ public class CreditAppDemo {
   @SuppressWarnings("static-access")
   private String loanCifIsBizEntity() {
     LoanParams loanParams = new LoanParams();
+    JSONObject json = new JSONObject();
     CsCust cs_cust = new CsCust();
     LoanBase base = new LoanBase();
     base.setNm("个人私营");
@@ -255,13 +268,16 @@ public class CreditAppDemo {
     base.setCreditCardLines(new BigDecimal("12345"));
     base.setLoanFixedYear(new BigDecimal("11"));
     base.setIsBizEntity("Y");
+    Map<Object, Object> jsonMap = new HashMap<>();
+    jsonMap.put("芝麻信用分", "750");
+    base.setPortrait(json.toJSONString(jsonMap));
     cs_cust.setBase(base);
     cs_cust.setBusiness(loanIndvParam());
     loanParams.setCs_cust(cs_cust);
     loanParams.setContacts(loanContactParam());
     loanParams.setFac(loanFacParam());
     loanParams.setCol(loanColParam());
-    JSONObject json = new JSONObject();
+
     return json.toJSONString(loanParams, SerializerFeature.WriteDateUseDateFormat);
   }
 
@@ -275,6 +291,7 @@ public class CreditAppDemo {
   @SuppressWarnings("static-access")
   private String loanCifIsNotBizEntity() {
     LoanParams loanParams = new LoanParams();
+    JSONObject json = new JSONObject();
     CsCust cs_cust = new CsCust();
     LoanBase base = new LoanBase();
     base.setNm("个人非私营");
@@ -299,13 +316,15 @@ public class CreditAppDemo {
     base.setCreditCardLines(new BigDecimal("12345"));
     base.setLoanFixedYear(new BigDecimal("11"));
     base.setIsBizEntity("N");
+    Map<Object, Object> jsonMap = new HashMap<>();
+    jsonMap.put("芝麻信用分", "750");
+    base.setPortrait(json.toJSONString(jsonMap));
     cs_cust.setEmploy(loanEmpParam());
     cs_cust.setBase(base);
     loanParams.setCs_cust(cs_cust);
     loanParams.setContacts(loanContactParam());
     loanParams.setFac(loanFacParam());
     loanParams.setCol(loanColParam());
-    JSONObject json = new JSONObject();
     return json.toJSONString(loanParams, SerializerFeature.WriteDateUseDateFormat);
   }
 
