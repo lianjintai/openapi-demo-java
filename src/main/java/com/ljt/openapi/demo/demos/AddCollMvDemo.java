@@ -101,8 +101,9 @@ public class AddCollMvDemo {
    */
   public String collMvParams() {
     AppCollMvApiVO appCollMvApiVO = new AppCollMvApiVO();
-    appCollMvApiVO.setAppId("0092728480d24f5d87bf63639b5cfe1c");
+    appCollMvApiVO.setAppId("2b79c4cfbde647749a639ccd355dffac");
     appCollMvApiVO.setMtCollStyleCd("DY");
+    appCollMvApiVO.setMtCollTypCd("MV");
     appCollMvApiVO.setMtCollCatCd("MV01");
     appCollMvApiVO.setMtCollCd("DY0601001");
     appCollMvApiVO.setCollValue(new BigDecimal("123456.78"));
@@ -122,7 +123,7 @@ public class AddCollMvDemo {
     // 所有者信息（个人）
     appCollMvApiVO.setCsCollOwner(getCsCollOwner());
     // 所有者信息（企业）
-    appCollMvApiVO.setCsCollOwner(getCpCollOwner());
+    appCollMvApiVO.setCpCollOwner(getCpCollOwner());
     // 外部评估信息
     appCollMvApiVO.setAppCollEvaluate(getAppCollEvaluate());
     return JSONObject.toJSONString(appCollMvApiVO, SerializerFeature.WriteDateUseDateFormat);
@@ -304,6 +305,9 @@ public class AddCollMvDemo {
     basicInfoVO.setIsMadeInChina("N");
     basicInfoVO.setManufactured(new Date());
     basicInfoVO.setModel("轿车");
+    basicInfoVO.setEngineNo("12312312312321");
+    basicInfoVO.setFrameNo("VCSD2342343");
+    basicInfoVO.setPlateNo("GDSD2342343");
     List<String> mtFuelCd = new ArrayList<>();
     mtFuelCd.add("001");
     mtFuelCd.add("002");
