@@ -274,7 +274,6 @@ public class CreditAppDemo {
     cs_cust.setBase(base);
     cs_cust.setBusiness(loanIndvParam());
     loanParams.setCs_cust(cs_cust);
-    loanParams.setContacts(loanContactParam());
     loanParams.setFac(loanFacParam());
     loanParams.setCol(loanColParam());
 
@@ -322,7 +321,6 @@ public class CreditAppDemo {
     cs_cust.setEmploy(loanEmpParam());
     cs_cust.setBase(base);
     loanParams.setCs_cust(cs_cust);
-    loanParams.setContacts(loanContactParam());
     loanParams.setFac(loanFacParam());
     loanParams.setCol(loanColParam());
     return json.toJSONString(loanParams, SerializerFeature.WriteDateUseDateFormat);
