@@ -26,6 +26,7 @@ import com.ljt.openapi.demo.util.MessageDigestUtil;
 import com.ljt.openapi.demo.util.PropertiesUtils;
 import com.ljt.openapi.demo.vo.AppCollEvaluateVO;
 import com.ljt.openapi.demo.vo.AppCollOwnerVO;
+import com.ljt.openapi.demo.vo.AppCollPrBaseVO;
 import com.ljt.openapi.demo.vo.AppCollPrVO;
 import com.ljt.openapi.demo.vo.PrBasicInfoVO;
 import com.ljt.openapi.demo.vo.PrConsttInfoVO;
@@ -101,31 +102,44 @@ public class AddCollPrDemo {
    */
   public String collPrParams() {
     AppCollPrVO appCollPrVO = new AppCollPrVO();
-    appCollPrVO.setAppId("0092728480d24f5d87bf63639b5cfe1c");
+    appCollPrVO.setAppId("1cb929f989fd4175bf6e4bf79a3ed422");
     appCollPrVO.setMtCollStyleCd("DY");
+    appCollPrVO.setMtCollTypCd("PR");
     appCollPrVO.setMtCollCatCd("PR01");
     appCollPrVO.setMtCollCd("DY0101001");
     appCollPrVO.setCollValue(new BigDecimal("123456.78"));
     appCollPrVO.setDtPurchased(new Date());
     appCollPrVO.setMortgageInfo("抵押摘要");
     appCollPrVO.setPurchasedPrc(new BigDecimal("500000.78"));
-    // 房产基本信息
-    appCollPrVO.setPrBasicInfo(getPrBasicInfo());
-    // 房屋构造情况
-    appCollPrVO.setPrConsttInfo(getPrConsttInfo());
-    // 土地状况
-    appCollPrVO.setPrLandInfo(getPrLandInfo());
-    // 租赁信息
-    appCollPrVO.setPrLeaseInfo(getPrLeaseInfo());
-    // 房屋登记情况
-    appCollPrVO.setPrRecordInfo(getPrRecordInfo());
+    appCollPrVO.setAppCollPr(getAppCollPr());
     // 所有者信息（个人）
     appCollPrVO.setCsCollOwner(getCsCollOwner());
     // 所有者信息（企业）
-    appCollPrVO.setCsCollOwner(getCpCollOwner());
+    appCollPrVO.setCpCollOwner(getCpCollOwner());
     // 外部评估信息
     appCollPrVO.setAppCollEvaluate(getAppCollEvaluate());
     return JSONObject.toJSONString(appCollPrVO, SerializerFeature.WriteDateUseDateFormat);
+  }
+  
+  /** 
+   *  @Description	: 构建房产担保品信息
+   *  @return         : AppCollPrBaseVO
+   *  @Creation Date  : 2017年8月17日 下午9:51:07 
+   *  @Author         : chenshouhao
+   */
+  private AppCollPrBaseVO getAppCollPr(){
+    AppCollPrBaseVO appCollPrBaseVO=new AppCollPrBaseVO();
+    // 房产基本信息
+    appCollPrBaseVO.setPrBasicInfo(getPrBasicInfo());
+    // 房屋构造情况
+    appCollPrBaseVO.setPrConsttInfo(getPrConsttInfo());
+    // 土地状况
+    appCollPrBaseVO.setPrLandInfo(getPrLandInfo());
+    // 租赁信息
+    appCollPrBaseVO.setPrLeaseInfo(getPrLeaseInfo());
+    // 房屋登记情况
+    appCollPrBaseVO.setPrRecordInfo(getPrRecordInfo());
+    return appCollPrBaseVO;
   }
 
   /**
