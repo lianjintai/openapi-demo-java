@@ -258,7 +258,7 @@ public class CreditAppDemo {
     base.setMtResidenceStsCd("01");
     base.setIsFamily("Y");
     base.setMtJobSectorCd("10000");
-    base.setMonthlyIncAmt(new BigDecimal("100000"));
+    base.setYearIncAmt(new BigDecimal("100000"));
     base.setEmail("123@qq.com");
     base.setMobileNo("18888888888");
     base.setMtIndvMobileUsageStsCd("01");
@@ -306,7 +306,7 @@ public class CreditAppDemo {
     base.setMtResidenceStsCd("01");
     base.setIsFamily("Y");
     base.setMtJobSectorCd("10000");
-    base.setMonthlyIncAmt(new BigDecimal("100000"));
+    base.setYearIncAmt(new BigDecimal("100000"));
     base.setEmail("123@qq.com");
     base.setMobileNo("18888888888");
     base.setMtIndvMobileUsageStsCd("01");

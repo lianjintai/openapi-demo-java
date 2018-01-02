@@ -57,9 +57,9 @@ public class LoanBase {
    */
   private String mtJobSectorCd;
   /**
-   * 近1年税后平均月收入(单位/元)
+   * 近1年税后收入(单位/元)
    */
-  private BigDecimal monthlyIncAmt;
+  private BigDecimal yearIncAmt;
   /**
    * 电子邮箱
    */
@@ -170,12 +170,12 @@ public class LoanBase {
     this.mtJobSectorCd = mtJobSectorCd;
   }
 
-  public BigDecimal getMonthlyIncAmt() {
-    return monthlyIncAmt;
+  public BigDecimal getYearIncAmt() {
+    return yearIncAmt;
   }
 
-  public void setMonthlyIncAmt(BigDecimal monthlyIncAmt) {
-    this.monthlyIncAmt = monthlyIncAmt;
+  public void setYearIncAmt(BigDecimal yearIncAmt) {
+    this.yearIncAmt = yearIncAmt;
   }
 
   public String getEmail() {
