@@ -24,27 +24,27 @@ public class LoanIndv {
    */
   private java.math.BigDecimal currentTotal;
   /**
-   * 近一年月平均纳税额(单位/元)
+   * 近一年纳税额(单位/元)
    */
   private BigDecimal ratal;
   /**
-   * 近一年月平均社保缴存额(单位/元)
+   * 近一年社保缴存额(单位/元)
    */
   private BigDecimal socialSecurity;
   /**
-   * 近一年月平均公积金缴存额(单位/元)
+   * 近一年公积金缴存额(单位/元)
    */
   private BigDecimal equityLine;
   /**
-   * 近一年月平均用水量(单位/吨)
+   * 近一年用水量(单位/吨)
    */
   private BigDecimal waterDosage;
   /**
-   * 近一年月平均用电量(单位/度)
+   * 近一年用电量(单位/度)
    */
   private BigDecimal electricityDosage;
   /**
-   * 近一年月平均发放工资(单位/元)
+   * 近一年发放工资(单位/元)
    */
   private BigDecimal salaryTotal;
   /**
