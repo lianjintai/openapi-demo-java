@@ -260,7 +260,7 @@ public class CreatedAppTest {
     base.setMtResidenceStsCd("01");
     base.setIsFamily("Y");
     base.setMtJobSectorCd("10000");
-    base.setMonthlyIncAmt(new BigDecimal("100000"));
+    base.setYearIncAmt(new BigDecimal("100000"));
     base.setEmail("123@qq.com");
     base.setMobileNo("18888888888");
     base.setMtIndvMobileUsageStsCd("01");
@@ -305,7 +305,7 @@ public class CreatedAppTest {
     base.setMtResidenceStsCd("01");
     base.setIsFamily("Y");
     base.setMtJobSectorCd("10000");
-    base.setMonthlyIncAmt(new BigDecimal("100000"));
+    base.setYearIncAmt(new BigDecimal("100000"));
     base.setEmail("123@qq.com");
     base.setMobileNo("18888888888");
     base.setMtIndvMobileUsageStsCd("01");
@@ -394,11 +394,13 @@ public class CreatedAppTest {
    */
   private List<LoanCol> loanColParam() {
     LoanCol loanCol = new LoanCol();
-    loanCol.setMtCollTypCd("DP");
-    loanCol.setMtCollStyleCd("PCOL2");
+    loanCol.setMtCollTypCd("CC");
+    loanCol.setMtCollStyleCd("ZY");
     loanCol.setCollOwner("所有人");
     loanCol.setCollValue("111111");
     loanCol.setIsDeposit("N");
+    loanCol.setMtCollCd("ZY0601001");
+    loanCol.setMtCollCatCd("CC02");
     List<LoanCol> loanCols = new ArrayList<>();
     loanCols.add(loanCol);
     return loanCols;
