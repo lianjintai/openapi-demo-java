@@ -2,6 +2,7 @@ package com.ljt.openapi.demo.vo;
 
 
 public class LoanCol {
+
   /**
    * 担保品所有者
    */
@@ -22,6 +23,14 @@ public class LoanCol {
    * 担保方式类型
    */
   private String mtCollStyleCd;
+  /**
+   * 担保品种类
+   */
+  private String mtCollCatCd;
+  /**
+   * 担保小类
+   */
+  private String mtCollCd;
 
   public String getCollOwner() {
     return collOwner;
@@ -63,4 +72,19 @@ public class LoanCol {
     this.mtCollStyleCd = mtCollStyleCd;
   }
 
+  public String getMtCollCatCd() {
+    return mtCollCatCd;
+  }
+
+  public void setMtCollCatCd(String mtCollCatCd) {
+    this.mtCollCatCd = mtCollCatCd;
+  }
+
+  public String getMtCollCd() {
+    return mtCollCd;
+  }
+
+  public void setMtCollCd(String mtCollCd) {
+    this.mtCollCd = mtCollCd;
+  }
 }
