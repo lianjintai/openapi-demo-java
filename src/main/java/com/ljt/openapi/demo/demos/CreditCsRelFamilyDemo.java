@@ -60,7 +60,7 @@ public class CreditCsRelFamilyDemo {
    * @iteration : 1.22
    */
   @Test
-  public void createSpouseNotBizTest() throws Exception {
+  public void createRelFamilyTest() throws Exception {
     String requestBody = loanCifRelFamily();
     String method = "loan_app:cif_cs_rel_family:create";
     String aesKey = key;
