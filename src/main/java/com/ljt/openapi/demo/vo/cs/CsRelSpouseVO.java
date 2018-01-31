@@ -1,7 +1,6 @@
 package com.ljt.openapi.demo.vo.cs;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 import com.ljt.openapi.demo.vo.RelGeneralVO;
 
