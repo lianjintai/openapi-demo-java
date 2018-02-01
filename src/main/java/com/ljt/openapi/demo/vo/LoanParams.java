@@ -25,6 +25,11 @@ public class LoanParams {
    * 担保信息
    */
   private List<LoanCol> col;
+  
+  /**
+   * callbackURL:授信状态变更后通知回调URL
+   */
+  private String callbackURL;
 
   public CsCust getCs_cust() {
     return cs_cust;
@@ -66,5 +71,12 @@ public class LoanParams {
     this.col = col;
   }
 
+  public String getCallbackURL() {
+    return callbackURL;
+  }
+
+  public void setCallbackURL(String callbackURL) {
+    this.callbackURL = callbackURL;
+  }
 
 }

@@ -1,5 +1,15 @@
 package apiTest;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import org.junit.Test;
+
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.ljt.openapi.demo.Client;
@@ -23,14 +33,6 @@ import com.ljt.openapi.demo.vo.LoanParams;
 import com.ljt.openapi.demo.vo.cs.LoanBase;
 import com.ljt.openapi.demo.vo.cs.LoanEmplymt;
 import com.ljt.openapi.demo.vo.cs.LoanIndv;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-import org.junit.Test;
 
 /**
  * 
@@ -270,12 +272,14 @@ public class CreatedAppTest {
     base.setCreditCardLines(new BigDecimal("12345"));
     base.setLoanFixedYear(new BigDecimal("11"));
     base.setIsBizEntity("Y");
+    base.setRepaymentCard("9981092891827");
     cs_cust.setBase(base);
     cs_cust.setBusiness(loanIndvParam());
     loanParams.setCs_cust(cs_cust);
     loanParams.setContacts(loanContactParam());
     loanParams.setFac(loanFacParam());
     loanParams.setCol(loanColParam());
+    loanParams.setCallbackURL("http://demo.lianjintai.com/callback");
     JSONObject json = new JSONObject();
     return json.toJSONString(loanParams, SerializerFeature.WriteDateUseDateFormat);
 
