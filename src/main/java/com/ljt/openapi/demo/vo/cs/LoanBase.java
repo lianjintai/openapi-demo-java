@@ -98,6 +98,11 @@ public class LoanBase {
   private String isBizEntity;
   private String portrait;
 
+  /**
+   * repaymentCard:还款银行卡号
+   */
+  private String repaymentCard;    
+  
   public String getNm() {
     return nm;
   }
@@ -282,6 +287,12 @@ public class LoanBase {
     this.portrait = portrait;
   }
 
+  public String getRepaymentCard() {
+    return repaymentCard;
+  }
 
+  public void setRepaymentCard(String repaymentCard) {
+    this.repaymentCard = repaymentCard;
+  }
 
 }
