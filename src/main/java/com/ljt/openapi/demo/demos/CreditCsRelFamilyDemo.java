@@ -1,6 +1,8 @@
 package com.ljt.openapi.demo.demos;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,6 +12,7 @@ import org.junit.Test;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.ljt.openapi.demo.Client;
 import com.ljt.openapi.demo.Request;
 import com.ljt.openapi.demo.constant.Constants;
 import com.ljt.openapi.demo.constant.ContentType;
@@ -50,7 +53,8 @@ public class CreditCsRelFamilyDemo {
   private String appSecret = "";
 
   /********************* 以上信息请换成您获取到的密钥 **********************************/
-
+  // 日期类型转换
+  private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
   /**
    * 
    * @Description :关联人:亲朋信息的创建
@@ -85,6 +89,8 @@ public class CreditCsRelFamilyDemo {
     headers.put(HttpHeader.HTTP_HEADER_CONTENT_TYPE, ContentType.CONTENT_TYPE_JSON);
     request.setHeaders(headers);
     request.setStringBody(requestBody);
+    // 执行发送请求
+    Client.execute(request);
   }
 
   /**
@@ -94,15 +100,15 @@ public class CreditCsRelFamilyDemo {
    * @Author : lcy
    * @iteration : 1.22
    */
-  private String loanCifRelFamily() {
+  private String loanCifRelFamily() throws ParseException{
     CsRelFamilyVO csRelFamilyVO = new CsRelFamilyVO();
     csRelFamilyVO.setNm("朋友关联人");
     csRelFamilyVO.setMtCifRelCd("II006");
     csRelFamilyVO.setAppId("d18d361c3668429f9798734c6ad2ac9f");
-    csRelFamilyVO.setIdNo("110113199801167614");
-    csRelFamilyVO.setMtGenderCd("F");
+    csRelFamilyVO.setIdNo("11011319870512939X");
+    csRelFamilyVO.setMtGenderCd("M");
     csRelFamilyVO.setMtMaritalStsCd("02");
-    csRelFamilyVO.setDtRegistered(new Date());
+    csRelFamilyVO.setDtRegistered(format.parse("1987-05-12"));
     csRelFamilyVO.setMobileNo("18888888888");
     csRelFamilyVO.setYearIncAmt(BigDecimal.TEN);
     csRelFamilyVO.setMtIncSourceCd("ISC003");

@@ -1,6 +1,8 @@
 package com.ljt.openapi.demo.demos;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,6 +12,7 @@ import org.junit.Test;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.ljt.openapi.demo.Client;
 import com.ljt.openapi.demo.Request;
 import com.ljt.openapi.demo.constant.Constants;
 import com.ljt.openapi.demo.constant.ContentType;
@@ -53,7 +56,8 @@ public class CreditCsRelSpouseDemo {
   private String appSecret = "";
 
   /********************* 以上信息请换成您获取到的密钥 **********************************/
-
+  // 日期类型转换
+  private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
   /**
    * 
    * @Description : 配偶关联人-非私营业主信息
@@ -88,6 +92,8 @@ public class CreditCsRelSpouseDemo {
     headers.put(HttpHeader.HTTP_HEADER_CONTENT_TYPE, ContentType.CONTENT_TYPE_JSON);
     request.setHeaders(headers);
     request.setStringBody(requestBody);
+    // 执行发送请求
+    Client.execute(request);
   }
 
   /**
@@ -97,18 +103,20 @@ public class CreditCsRelSpouseDemo {
    * @Creation Date : 2017年5月26日 下午4:11:50
    * @Author : bianyan
    */
-  private String loanCifIsNotBizEntity() {
+  private String loanCifIsNotBizEntity() throws ParseException {
     RelCsLoanParam relLoanParams = new RelCsLoanParam();
     CsRelSpouseVO relCsBase = new CsRelSpouseVO();
     relCsBase.setNm("配偶关联人非私营业主");
     relCsBase.setAppId("57645243adc3409ea12f0b979d84b48c");
     relCsBase.setMtCifRelCd("II001");
-    relCsBase.setDtRegistered(new Date());
-    relCsBase.setIdNo("111111199501171013");
+    relCsBase.setIdNo("11011319870512939X");
+    // 出生日期需与证件号中的出生日期相匹配
+    relCsBase.setDtRegistered(format.parse("1987-05-12"));
     relCsBase.setMtCityCd("110100");
     relCsBase.setDtIssue(new Date());
     relCsBase.setMtMaritalStsCd("02");
     relCsBase.setDtExpiry(new Date());
+    // 性别需与证件号对应的性别想匹配
     relCsBase.setMtGenderCd("M");
     relCsBase.setMtEduLvlCd("01");
     relCsBase.setMtResidenceStsCd("01");
@@ -193,7 +201,7 @@ public class CreditCsRelSpouseDemo {
     relCsBase.setNm("配偶关联人私营业主");
     relCsBase.setAppId("57645243adc3409ea12f0b979d84b48c");
     relCsBase.setMtCifRelCd("II001");
-    relCsBase.setIdNo("11511188888999999");
+    relCsBase.setIdNo("11011319800209758X");
     relCsBase.setMtCityCd("110100");
     relCsBase.setDtIssue(new Date());
     relCsBase.setMtMaritalStsCd("02");
