@@ -1,10 +1,10 @@
 package apiTest;
 
+import com.alibaba.fastjson.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Map;
-
 import org.apache.http.Consts;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.ClientProtocolException;
@@ -18,8 +18,6 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.junit.Test;
-
-import com.alibaba.fastjson.JSONObject;
 
 public class PushAppDoc {
   
@@ -40,21 +38,30 @@ public class PushAppDoc {
   public void pushAppDoc() throws ClientProtocolException, IOException {
     CloseableHttpClient httpClient = HttpClients.createDefault();
     try {
+      String filName="8f6499732dec43ceb6e6da549b69f33b.zip";
+      JSONObject jsonObject= JSONObject.parseObject("{\n"
+          + "        \"accessid\": \"ZTEDWNalMYqBjYeQ\",\n"
+          + "        \"policy\": \"eyJleHBpcmF0aW9uIjoiMjAxOC0wOC0wOFQwOTo1ODo1Mi45MTlaIiwiY29uZGl0aW9ucyI6W1siY29udGVudC1sZW5ndGgtcmFuZ2UiLDAsMTA0ODU3NjAwMF0sWyJzdGFydHMtd2l0aCIsIiRrZXkiLCJkb2MvIl1dfQ==\",\n"
+          + "        \"signature\": \"4ZXuNWlDeiswfv2kbCI93ohZOVE=\",\n"
+          + "        \"dir\": \"doc/\",\n"
+          + "        \"host\": \"https://ljt-sit-oss.oss-cn-beijing.aliyuncs.com\",\n"
+          + "        \"callback\": \"eyJjYWxsYmFja1VybCI6Imh0dHA6Ly92eG5hcjkubmF0YXBwZnJlZS5jYy92MS9mYWNhZGUvYXBwcy84ZjY0OTk3MzJkZWM0M2NlYjZlNmRhNTQ5YjY5ZjMzYi9kb2NfZmlsZXMiLCJjYWxsYmFja0hvc3QiOiJ2eG5hcjkubmF0YXBwZnJlZS5jYyIsImNhbGxiYWNrQm9keSI6Im9iamVjdFx1MDAzZCR7b2JqZWN0fVx1MDAyNnNpemVcdTAwM2Qke3NpemV9XHUwMDI2bWltZVR5cGVcdTAwM2Qke21pbWVUeXBlfSIsImNhbGJhY2tCb2R5VHlwZSI6IlVSTCIsImNhbGxiYWNrVmFyIjp7fX0=\"\n"
+          + "    }");
       // 需要上传的文件路径
-      String filePath = "D:\\test\\eb8d63115e1e4031b7d3048a8c6b6d4d.zip";
-      
+      String filePath = "D:\\test\\8f6499732dec43ceb6e6da549b69f33b.zip";
+      System.out.println(jsonObject.toJSONString());
       // 上传文件的地址
-      HttpPost httpPost = new HttpPost("https://ljt-sit-oss.oss-cn-beijing.aliyuncs.com");
+      HttpPost httpPost = new HttpPost(jsonObject.getString("host"));
       
       FileBody file = new FileBody(new File(filePath));
 
       // 构造请求参数，这些参数从获取可上传申请材料接口中获取
-      StringBody accessid = new StringBody("ZTEDWNalMYqBjYeQ", ContentType.create("text/plain", Consts.UTF_8));
-      StringBody signature = new StringBody("xrbJtas4Ali2SexUkSSZOmXvye4=",ContentType.create("text/plain", Consts.UTF_8));
-      StringBody callback = new StringBody("eyJjYWxsYmFja1VybCI6Imh0dHA6Ly93ZnFodHEubmF0YXBwZnJlZS5jYzo4MC92MS9mYWNhZGUvYXBwcy9lYjhkNjMxMTVlMWU0MDMxYjdkMzA0OGE4YzZiNmQ0ZC9kb2NfZmlsZXMiLCJjYWxsYmFja0hvc3QiOiJ3ZnFodHEubmF0YXBwZnJlZS5jYyIsImNhbGxiYWNrQm9keSI6Im9iamVjdFx1MDAzZCR7b2JqZWN0fVx1MDAyNnNpemVcdTAwM2Qke3NpemV9XHUwMDI2bWltZVR5cGVcdTAwM2Qke21pbWVUeXBlfSIsImNhbGJhY2tCb2R5VHlwZSI6IlVSTCIsImNhbGxiYWNrVmFyIjp7fX0=",
+      StringBody accessid = new StringBody(jsonObject.getString("accessid"), ContentType.create("text/plain", Consts.UTF_8));
+      StringBody signature = new StringBody(jsonObject.getString("signature"),ContentType.create("text/plain", Consts.UTF_8));
+      StringBody callback = new StringBody(jsonObject.getString("callback"),
           ContentType.create("text/plain", Consts.UTF_8));
-      StringBody key = new StringBody("doc/eb8d63115e1e4031b7d3048a8c6b6d4d.zip",ContentType.create("text/plain", Consts.UTF_8));
-      StringBody policy = new StringBody("eyJleHBpcmF0aW9uIjoiMjAxNy0wNi0wOFQwMzowOToyNi40MDFaIiwiY29uZGl0aW9ucyI6W1siY29udGVudC1sZW5ndGgtcmFuZ2UiLDAsMTA0ODU3NjAwMF0sWyJzdGFydHMtd2l0aCIsIiRrZXkiLCJkb2MvIl1dfQ==",
+      StringBody key = new StringBody( jsonObject.getString("dir")+filName,ContentType.create("text/plain", Consts.UTF_8));
+      StringBody policy = new StringBody(jsonObject.getString("policy"),
           ContentType.create("text/plain", Consts.UTF_8));
       StringBody successActionStatus = new StringBody("200", ContentType.create("text/plain", Consts.UTF_8));
 
