@@ -1,6 +1,7 @@
 package com.ljt.openapi.demo.vo;
 
 import java.util.Date;
+import java.util.Map;
 
 /**
  * @Project : dcms-facade-base
@@ -46,8 +47,8 @@ public class FaCifFinParaVO {
   /**
    * 描述:主客户财务报表信息唯一标识（正式表）
    */
-  private java.lang.String cifFinId;
-  
+  private String cifFinId;
+
   /**
    * appId:推贷申请ID
    */
@@ -57,7 +58,19 @@ public class FaCifFinParaVO {
    * base64OfFile:上传文件的Base64编码(URLEncoder转码后)
    */
   private String base64OfFile;
-  
+
+  /**
+   * 财报格式代码（000-05版，004-07版）
+   */
+  private String mtFinFmtCd;
+
+  /**
+   * 财报明细
+   * key：财报明细代码
+   * value：财报明细金额
+   */
+  private Map<String, String> finItems;
+
   public String getFaFileId() {
     return faFileId;
   }
@@ -106,11 +119,11 @@ public class FaCifFinParaVO {
     this.mtFinRptCatCd = mtFinRptCatCd;
   }
 
-  public java.lang.String getCifFinId() {
+  public String getCifFinId() {
     return cifFinId;
   }
 
-  public void setCifFinId(java.lang.String cifFinId) {
+  public void setCifFinId(String cifFinId) {
     this.cifFinId = cifFinId;
   }
 
@@ -128,5 +141,21 @@ public class FaCifFinParaVO {
 
   public void setBase64OfFile(String base64OfFile) {
     this.base64OfFile = base64OfFile;
+  }
+
+  public String getMtFinFmtCd() {
+    return mtFinFmtCd;
+  }
+
+  public void setMtFinFmtCd(String mtFinFmtCd) {
+    this.mtFinFmtCd = mtFinFmtCd;
+  }
+
+  public Map<String, String> getFinItems() {
+    return finItems;
+  }
+
+  public void setFinItems(Map<String, String> finItems) {
+    this.finItems = finItems;
   }
 }
