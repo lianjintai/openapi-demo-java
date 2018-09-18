@@ -1,7 +1,7 @@
 package com.ljt.openapi.demo.enums;
 
 /**
- * 
+ *
  * @Project : dcms-openapi-demo
  * @Program Name : com.ljt.openapi.demo.enums.ApiHost.java
  * @Description : api地址枚举
@@ -11,8 +11,12 @@ package com.ljt.openapi.demo.enums;
  *                      bingo刑天 2016年12月27日 create
  */
 public enum ApiHost {
-  DEV_API_HOST("stageapi.lianjintai.com", "测试api地址"), OFFICIAL_API_HOST("api.lianjintai.com",
-      "正式api地址"), LOCALHOST("localhost:8089", "单机测试地址");
+
+  DEV_API_HOST("stageapi.lianjintai.com", "测试api地址"),
+
+  OFFICIAL_API_HOST("api.lianjintai.com", "正式api地址"),
+
+  LOCALHOST("localhost:8089", "单机测试地址");
 
   private String host;
   private String dscp;

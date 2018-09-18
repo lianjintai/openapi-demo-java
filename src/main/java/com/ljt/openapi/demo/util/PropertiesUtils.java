@@ -7,7 +7,7 @@ public final class PropertiesUtils {
 
   private static Properties prop = new Properties();
 
-  private static final String PROPERTIES_NAME = "keys3.properties";
+  private static final String PROPERTIES_NAME = "keys.properties";
 
 
   static {
