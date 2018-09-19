@@ -1,20 +1,10 @@
 package com.ljt.openapi.demo.demos;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
-import org.junit.Test;
-
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.ljt.openapi.demo.Client;
 import com.ljt.openapi.demo.Request;
+import com.ljt.openapi.demo.Response;
 import com.ljt.openapi.demo.constant.Constants;
 import com.ljt.openapi.demo.constant.ContentType;
 import com.ljt.openapi.demo.constant.HttpHeader;
@@ -33,6 +23,15 @@ import com.ljt.openapi.demo.vo.MvConfInfoVO;
 import com.ljt.openapi.demo.vo.MvInsuranceInfo;
 import com.ljt.openapi.demo.vo.MvPaymentInfoVO;
 import com.ljt.openapi.demo.vo.MvPenaltyInfoVO;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import org.junit.Test;
 
 /**
  * @Project : dcms-openapi-demo
@@ -44,7 +43,8 @@ import com.ljt.openapi.demo.vo.MvPenaltyInfoVO;
  *                      zhiqiang zhang 2017年8月16日 create
  */
 public class AddCollMvDemo {
-  /********************* 以下信息请换成您获取到的密钥 **********************************/
+
+  /******************* 以下信息请换成您获取到的密钥 **************************/
   /**
    * aes加密密钥
    */
@@ -58,8 +58,10 @@ public class AddCollMvDemo {
    */
   private String appSecret = PropertiesUtils.getAppSecret();
 
+  /******************* 以上信息请换成您获取到的密钥 *************************/
+
   /**
-   * @Description : 财报上传demo
+   * @Description : 新增机动车担保品Demo
    * @return : void
    * @Creation Date : 2017年5月8日 下午6:36:08
    * @Author : zhiqiang zhang
@@ -68,7 +70,6 @@ public class AddCollMvDemo {
   public void AddCollMvTest() throws Exception {
     String requestBody = collMvParams();
     String method = "loan_app:coll_mv:create";
-    String aesKey = key;
     Request request = new Request();
     request.setMethod(Method.POST_STRING);
     /**
@@ -84,13 +85,16 @@ public class AddCollMvDemo {
     // （必填）根据期望的Response内容类型设置
     headers.put(HttpHeader.HTTP_HEADER_ACCEPT, "application/json");
     // Body MD5,服务端会校验Body内容是否被篡改,建议Body非Form表单时添加此Header
-    requestBody = AESUtil.encrypt(aesKey, requestBody);
+    requestBody = AESUtil.encrypt(key, requestBody);
     headers.put(HttpHeader.HTTP_HEADER_CONTENT_MD5, MessageDigestUtil.base64AndMD5(requestBody));
     // （POST/PUT请求必选）请求Body内容格式
     headers.put(HttpHeader.HTTP_HEADER_CONTENT_TYPE, ContentType.CONTENT_TYPE_TEXT);
     request.setHeaders(headers);
     request.setStringBody(requestBody);
-    Client.execute(request);
+    Response response = Client.execute(request);
+    if (response.getStatusCode() == 200) {
+      System.out.println("decrypt response：" + AESUtil.decrypt(response.getBody(), key));
+    }
   }
 
   /**
@@ -101,7 +105,7 @@ public class AddCollMvDemo {
    */
   public String collMvParams() {
     AppCollMvApiVO appCollMvApiVO = new AppCollMvApiVO();
-    appCollMvApiVO.setAppId("2b79c4cfbde647749a639ccd355dffac");
+    appCollMvApiVO.setAppId("e2c0d9868471446e9a3428d39cfe5367");
     appCollMvApiVO.setMtCollStyleCd("DY");
     appCollMvApiVO.setMtCollTypCd("MV");
     appCollMvApiVO.setMtCollCatCd("MV01");
@@ -155,11 +159,11 @@ public class AddCollMvDemo {
     List<AppCollOwnerVO> cpCollOwner = new ArrayList<>();
     AppCollOwnerVO appCollOwner3 = new AppCollOwnerVO();
     appCollOwner3.setNm("北京某某公司");
-    appCollOwner3.setIdNo("110113198410126911");
+    appCollOwner3.setIdNo("110113198410126933");
     appCollOwner3.setIsComb("Y");
     AppCollOwnerVO appCollOwner4 = new AppCollOwnerVO();
     appCollOwner4.setNm("上海某某公司");
-    appCollOwner4.setIdNo("110113198410126922");
+    appCollOwner4.setIdNo("110113198410126944");
     appCollOwner4.setIsComb("N");
     cpCollOwner.add(appCollOwner3);
     cpCollOwner.add(appCollOwner4);
@@ -177,12 +181,12 @@ public class AddCollMvDemo {
     AppCollOwnerVO appCollOwner1 = new AppCollOwnerVO();
     appCollOwner1.setNm("张三");
     appCollOwner1.setMtCifIdTypCd("I");
-    appCollOwner1.setIdNo("110113198410126933");
+    appCollOwner1.setIdNo("110113198810055476");
     appCollOwner1.setMobileNo("13512341234");
     AppCollOwnerVO appCollOwner2 = new AppCollOwnerVO();
     appCollOwner2.setNm("李四");
     appCollOwner2.setMtCifIdTypCd("I");
-    appCollOwner2.setIdNo("110113198410126932");
+    appCollOwner2.setIdNo("110113197811086798");
     appCollOwner2.setMobileNo("13512341232");
     csCollOwner.add(appCollOwner1);
     csCollOwner.add(appCollOwner2);

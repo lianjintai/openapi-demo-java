@@ -1,7 +1,6 @@
 package com.ljt.openapi.demo.demos;
 
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.ljt.openapi.demo.Client;
 import com.ljt.openapi.demo.Request;
 import com.ljt.openapi.demo.Response;
@@ -15,28 +14,22 @@ import com.ljt.openapi.demo.enums.Method;
 import com.ljt.openapi.demo.util.AESUtil;
 import com.ljt.openapi.demo.util.MessageDigestUtil;
 import com.ljt.openapi.demo.util.PropertiesUtils;
-import com.ljt.openapi.demo.vo.RelCpLoanParam;
-import com.ljt.openapi.demo.vo.cp.CpReInfo;
-import com.ljt.openapi.demo.vo.cs.CsRelSpouseVO;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import org.junit.Test;
 
 /**
- * 
  * @Project : dcms-openapi-demo
- * @Program Name : com.ljt.openapi.demo.demos.CreditCpRelShareHolderDemo.java
- * @Description : 创建企贷关联人信息
- * @Author : lcy
- * @Creation Date : 2017年5月25日 下午2:10:58
+ * @Program Name : apiTest.GetCanUpload.java
+ * @Description : 获取可上传申请材料
+ * @Author : chenshouhao
+ * @Creation Date : 2017年6月6日 上午10:47:20
  * @ModificationHistory Who When What ---------- ------------- -----------------------------------
- *                      lcy 2017年5月25日 create
+ *                      chenshouhao 2017年6月6日 create
  */
-public class CreditCpRelShareHolderDemo {
+
+public class GetCanUpload {
 
   /******************* 以下信息请换成您获取到的密钥 **************************/
   /**
@@ -54,19 +47,21 @@ public class CreditCpRelShareHolderDemo {
 
   /******************* 以上信息请换成您获取到的密钥 *************************/
 
-  // 日期类型转换
-  private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-
   /**
-   * @Description : 创建法定代表关联人
+   * @Description : 获取可上传申请材料
    * @throws Exception
-   * @Creation Date : 2017年5月26日 下午2:00:07
-   * @Author : lcy
+   * @return : void
+   * @Creation Date : 2017年6月6日 上午11:14:32
+   * @Author : chenshouhao
    */
   @Test
-  public void credateCpRelShareHolderTest() throws Exception {
-    String requestBody = loanCprelParam();
-    String method = "loan_app:cif_cp_rel_shareholder:create";
+  public void getCanUpload() throws Exception {
+    // 构建请求体
+    Map<String, String> map = new HashMap<>();
+    map.put("app_id", "5cafd7bbdd5d44a99e4a26c13c1f0ed0");
+    String requestBody = JSONObject.toJSONString(map);
+    // 设置请求信息
+    String method = "loan_app:doc:can_upload";
     Request request = new Request();
     request.setMethod(Method.POST_STRING);
     /**
@@ -85,55 +80,12 @@ public class CreditCpRelShareHolderDemo {
     requestBody = AESUtil.encrypt(key, requestBody);
     headers.put(HttpHeader.HTTP_HEADER_CONTENT_MD5, MessageDigestUtil.base64AndMD5(requestBody));
     // （POST/PUT请求必选）请求Body内容格式
-    headers.put(HttpHeader.HTTP_HEADER_CONTENT_TYPE, ContentType.CONTENT_TYPE_JSON);
+    headers.put(HttpHeader.HTTP_HEADER_CONTENT_TYPE, ContentType.CONTENT_TYPE_TEXT);
     request.setHeaders(headers);
     request.setStringBody(requestBody);
     Response response = Client.execute(request);
     if (response.getStatusCode() == 200) {
       System.out.println("decrypt response：" + AESUtil.decrypt(response.getBody(), key));
     }
-  }
-
-  /**
-   * @Description : 封装法定代表人信息
-   * @return : String
-   * @Creation Date : 2017年5月26日 下午2:01:19
-   * @Author : lcy
-   */
-  private String loanCprelParam() throws ParseException {
-    RelCpLoanParam cpLoanParam = new RelCpLoanParam();
-    // 基本数据的封装
-    CsRelSpouseVO relCpBase = new CsRelSpouseVO();
-    relCpBase.setNm("法定代表关联人");
-    relCpBase.setMtCifRelCd("CI003");
-    relCpBase.setAppId("ea6f4a26f92e4925bcb12c2a41666f38");
-    relCpBase.setIdNo("11011319760206519X");
-    relCpBase.setMtMaritalStsCd("02");
-    relCpBase.setDtRegistered(format.parse("1976-02-06"));
-    relCpBase.setMtGenderCd("M");
-    relCpBase.setMobileNo("18888888889");
-    relCpBase.setMtIndvMobileUsageStsCd("01");
-    cpLoanParam.setRelCpsBase(relCpBase);
-    // 特有信息的封装
-    cpLoanParam.setCpRelInfo(loanCpRelInfo());
-    return JSONObject.toJSONString(cpLoanParam, SerializerFeature.WriteDateUseDateFormat);
-  }
-
-  /**
-   * 
-   * @Description : 封装法定代表人特有信息
-   * @return : CpReInfo
-   * @Creation Date : 2017年5月26日 下午2:01:57
-   * @Author : lcy
-   */
-  private CpReInfo loanCpRelInfo() {
-    CpReInfo cpReInfo = new CpReInfo();
-    cpReInfo.setIsActualCtrl("Y");
-    cpReInfo.setIsInvolvedMgmt("Y");
-    cpReInfo.setDtInBizLineSince(new Date());
-    cpReInfo.setDtInCompSince(new Date());;
-    cpReInfo.setMgmtExperience("工作经历");
-    cpReInfo.setMtMtPosHeldCd("003");
-    return cpReInfo;
   }
 }
