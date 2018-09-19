@@ -16,7 +16,6 @@ import com.ljt.openapi.demo.util.AESUtil;
 import com.ljt.openapi.demo.util.MessageDigestUtil;
 import com.ljt.openapi.demo.util.PropertiesUtils;
 import com.ljt.openapi.demo.vo.FaCifFinParaVO;
-import java.security.GeneralSecurityException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +30,7 @@ import org.junit.Test;
  */
 public class FinSaveDemo {
 
-  /********************* 以下信息请换成您获取到的密钥 **********************************/
+  /******************* 以下信息请换成您获取到的密钥 **************************/
   /**
    * aes加密密钥
    */
@@ -45,6 +44,47 @@ public class FinSaveDemo {
    */
   private String appSecret = PropertiesUtils.getAppSecret();
 
+  /******************* 以上信息请换成您获取到的密钥 *************************/
+
+  /**
+   * @description : 财报保存示例
+   * @return void
+   * @auther : 迟长超
+   * @version : 1.28
+   * @date : 2018/9/3 下午6:21
+   */
+  @Test
+  public void finSaveTest() throws Exception {
+    String requestBody = finSaveParam();
+    String method = "loan_app:earnings:save";
+    String aesKey = key;
+    Request request = new Request();
+    request.setMethod(Method.POST_STRING);
+    /**
+     * 测试环境，生产环境需要修改为 HttpSchema.HTTPS OFFICIAL_API_HOST
+     */
+    request.setHost(HttpSchema.HTTPS + ApiHost.DEV_API_HOST.getHost());
+    request.setPath("/v1/gateway/" + method);
+    request.setAppKey(appKey);
+    request.setAppSecret(appSecret);
+    request.setTimeout(Constants.DEFAULT_TIMEOUT_LONG);
+    Map<String, String> headers = new HashMap<>();
+    headers.put(SystemHeader.X_CA_NONCE, UUID.randomUUID().toString());
+    // （必填）根据期望的Response内容类型设置
+    headers.put(HttpHeader.HTTP_HEADER_ACCEPT, "application/json");
+    // Body MD5,服务端会校验Body内容是否被篡改,建议Body非Form表单时添加此Header
+    requestBody = AESUtil.encrypt(aesKey, requestBody);
+    headers.put(HttpHeader.HTTP_HEADER_CONTENT_MD5, MessageDigestUtil.base64AndMD5(requestBody));
+    // （POST/PUT请求必选）请求Body内容格式
+    headers.put(HttpHeader.HTTP_HEADER_CONTENT_TYPE, ContentType.CONTENT_TYPE_TEXT);
+    request.setHeaders(headers);
+    request.setStringBody(requestBody);
+    Response response = Client.execute(request);
+    if (response.getStatusCode() == 200) {
+      System.out.println("decrypt response：" + AESUtil.decrypt(response.getBody(), key));
+    }
+  }
+
   /**
    * @description : 财报保存参数
    * @return java.lang.String
@@ -54,7 +94,7 @@ public class FinSaveDemo {
    */
   public String finSaveParam() {
     FaCifFinParaVO faCifFinParaVO = new FaCifFinParaVO();
-    faCifFinParaVO.setAppId("7d3dfdd8d9204c6fbd7c9a26368ae5c0");
+    faCifFinParaVO.setAppId("1e9aecdfc22341b3baffb30a263d767e");
     faCifFinParaVO.setMtFinFmtCd("004");
     faCifFinParaVO.setDtFin(new Date());
     faCifFinParaVO.setMtFinStsCd("001");
@@ -117,42 +157,5 @@ public class FinSaveDemo {
     finItems.put("BS88", "0");
     faCifFinParaVO.setFinItems(finItems);
     return JSONObject.toJSONString(faCifFinParaVO, SerializerFeature.WriteDateUseDateFormat);
-  }
-
-
-  /**
-   * @description : 财报保存示例
-   * @return void
-   * @auther : 迟长超
-   * @version : 1.28
-   * @date : 2018/9/3 下午6:21
-   */
-  @Test
-  public void finSaveTest() throws Exception {
-    String requestBody = finSaveParam();
-    String method = "loan_app:earnings:save";
-    String aesKey = key;
-    Request request = new Request();
-    request.setMethod(Method.POST_STRING);
-    /**
-     * 测试环境，生产环境需要修改为 HttpSchema.HTTPS OFFICIAL_API_HOST
-     */
-    request.setHost(HttpSchema.HTTPS + ApiHost.DEV_API_HOST.getHost());
-    request.setPath("/v1/gateway/" + method);
-    request.setAppKey(appKey);
-    request.setAppSecret(appSecret);
-    request.setTimeout(Constants.DEFAULT_TIMEOUT_LONG);
-    Map<String, String> headers = new HashMap<>();
-    headers.put(SystemHeader.X_CA_NONCE, UUID.randomUUID().toString());
-    // （必填）根据期望的Response内容类型设置
-    headers.put(HttpHeader.HTTP_HEADER_ACCEPT, "application/json");
-    // Body MD5,服务端会校验Body内容是否被篡改,建议Body非Form表单时添加此Header
-    requestBody = AESUtil.encrypt(aesKey, requestBody);
-    headers.put(HttpHeader.HTTP_HEADER_CONTENT_MD5, MessageDigestUtil.base64AndMD5(requestBody));
-    // （POST/PUT请求必选）请求Body内容格式
-    headers.put(HttpHeader.HTTP_HEADER_CONTENT_TYPE, ContentType.CONTENT_TYPE_TEXT);
-    request.setHeaders(headers);
-    request.setStringBody(requestBody);
-    Client.execute(request);
   }
 }

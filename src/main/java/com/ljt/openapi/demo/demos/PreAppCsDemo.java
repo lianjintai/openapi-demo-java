@@ -20,12 +20,14 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import org.junit.Test;
 
 /**
  * 预申请demo
  */
 public class PreAppCsDemo {
 
+  /******************* 以下信息请换成您获取到的密钥 **************************/
   /**
    * aes加密密钥
    */
@@ -39,14 +41,12 @@ public class PreAppCsDemo {
    */
   private String appSecret = PropertiesUtils.getAppSecret();
 
+  /******************* 以上信息请换成您获取到的密钥 *************************/
 
+  @Test
   public void postAppDemo() throws Exception {
-    Map<String, String> paraMap = new HashMap<>();
-    paraMap.put("app_id", "8e032fb4882049a19e0c039260864898");
-    paraMap.put("mt_app_type_cd", "CS_PUSH_APP");
     String requestBody = getRequestBody();
     String method = "loan_app:cs_pre_app:create";
-    String aesKey = key;
     Request request = new Request();
     request.setMethod(Method.POST_STRING);
     /**
@@ -62,7 +62,7 @@ public class PreAppCsDemo {
     // （必填）根据期望的Response内容类型设置
     headers.put(HttpHeader.HTTP_HEADER_ACCEPT, "application/json");
     // Body MD5,服务端会校验Body内容是否被篡改,建议Body非Form表单时添加此Header
-    requestBody = AESUtil.encrypt(aesKey, requestBody);
+    requestBody = AESUtil.encrypt(key, requestBody);
     headers.put(HttpHeader.HTTP_HEADER_CONTENT_MD5, MessageDigestUtil.base64AndMD5(requestBody));
     // （POST/PUT请求必选）请求Body内容格式
     headers.put(HttpHeader.HTTP_HEADER_CONTENT_TYPE, ContentType.CONTENT_TYPE_TEXT);
@@ -70,17 +70,16 @@ public class PreAppCsDemo {
     request.setStringBody(requestBody);
     Response response = Client.execute(request);
     if (response.getStatusCode() == 200) {
-      System.out
-          .println("response=" + AESUtil.decrypt(response.getBody(), PropertiesUtils.getAESKey()));
+      System.out.println("decrypt response：" + AESUtil.decrypt(response.getBody(), key));
     }
   }
 
   public String getRequestBody() {
     PreAppCsVO preAppCsVO = new PreAppCsVO();
-    preAppCsVO.setCustId("123333321");
-    preAppCsVO.setNm("张三");
-    preAppCsVO.setIdNo("114897197912191924");
-    preAppCsVO.setMtGenderCd("F");
+    preAppCsVO.setCustId(UUID.randomUUID().toString().replaceAll("-", ""));
+    preAppCsVO.setNm("个人预申请");
+    preAppCsVO.setIdNo(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 18));
+    preAppCsVO.setMtGenderCd("M");
     preAppCsVO.setMtMaritalStsCd("01");
 
     preAppCsVO.setMtEduLvlCd("02");
@@ -100,7 +99,6 @@ public class PreAppCsDemo {
     preAppCsVO.setMtTimeCd("M");
     preAppCsVO.setIntRate(new BigDecimal("5.1"));
 
-    JSONObject json = new JSONObject();
-    return json.toJSONString(preAppCsVO, SerializerFeature.WriteDateUseDateFormat);
+    return JSONObject.toJSONString(preAppCsVO, SerializerFeature.WriteDateUseDateFormat);
   }
 }
