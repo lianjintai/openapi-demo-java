@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.ljt.openapi.demo.Client;
 import com.ljt.openapi.demo.Request;
+import com.ljt.openapi.demo.Response;
 import com.ljt.openapi.demo.constant.Constants;
 import com.ljt.openapi.demo.constant.ContentType;
 import com.ljt.openapi.demo.constant.HttpHeader;
@@ -13,8 +14,8 @@ import com.ljt.openapi.demo.enums.ApiHost;
 import com.ljt.openapi.demo.enums.Method;
 import com.ljt.openapi.demo.util.AESUtil;
 import com.ljt.openapi.demo.util.MessageDigestUtil;
-import com.ljt.openapi.demo.vo.BizCertificateVO;
 import com.ljt.openapi.demo.util.PropertiesUtils;
+import com.ljt.openapi.demo.vo.BizCertificateVO;
 import com.ljt.openapi.demo.vo.CpCust;
 import com.ljt.openapi.demo.vo.CsCust;
 import com.ljt.openapi.demo.vo.LoanCol;
@@ -31,9 +32,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import org.junit.Test;
 
 /**
- * 
+ *
  * @Project : dcms-openapi-demo
  * @Program Name : com.ljt.openapi.demo.demos.CreditAppDemo.java
  * @Description : 推贷申请创建demo
@@ -43,6 +45,8 @@ import java.util.UUID;
  *                      bingo刑天 2016年12月28日 create
  */
 public class CreditAppDemo {
+
+  /******************* 以下信息请换成您获取到的密钥 **************************/
   /**
    * aes加密密钥
    */
@@ -55,14 +59,18 @@ public class CreditAppDemo {
    * 产品密钥
    */
   private String appSecret = PropertiesUtils.getAppSecret();
+
+  /******************* 以上信息请换成您获取到的密钥 *************************/
+
   /**
-   * 
+   *
    * @Description : 个人推贷非私营业主申请Demo
    * @throws Exception
    * @return : void
    * @Creation Date : 2016年12月27日 上午11:02:27
    * @Author : bingo刑天
    */
+  @Test
   public void credateCsAppTest() throws Exception {
     String requestBody = loanCifIsNotBizEntity();
     String method = "loan_app:app:create";
@@ -88,17 +96,21 @@ public class CreditAppDemo {
     headers.put(HttpHeader.HTTP_HEADER_CONTENT_TYPE, ContentType.CONTENT_TYPE_TEXT);
     request.setHeaders(headers);
     request.setStringBody(requestBody);
-    Client.execute(request);
+    Response response = Client.execute(request);
+    if (response.getStatusCode() == 200) {
+      System.out.println("decrypt response：" + AESUtil.decrypt(response.getBody(), key));
+    }
   }
 
   /**
-   * 
+   *
    * @Description : 个人推贷私营业主申请Demo
    * @throws Exception
    * @return : void
    * @Creation Date : 2016年12月27日 上午11:04:27
    * @Author : bingo刑天
    */
+  @Test
   public void credateCsAppTest2() throws Exception {
     String requestBody = loanCifIsBizEntity();
     System.out.println(requestBody);
@@ -125,17 +137,21 @@ public class CreditAppDemo {
     headers.put(HttpHeader.HTTP_HEADER_CONTENT_TYPE, ContentType.CONTENT_TYPE_TEXT);
     request.setHeaders(headers);
     request.setStringBody(requestBody);
-    Client.execute(request);
+    Response response = Client.execute(request);
+    if (response.getStatusCode() == 200) {
+      System.out.println("decrypt response：" + AESUtil.decrypt(response.getBody(), key));
+    }
   }
 
   /**
-   * 
+   *
    * @Description : 企业推贷申请Demo
    * @throws Exception
    * @return : void
    * @Creation Date : 2016年12月27日 下午3:30:45
    * @Author : bingo刑天
    */
+  @Test
   public void credateCpAppTest() throws Exception {
     String requestBody = loanCpParam();
     System.out.println(requestBody);
@@ -162,11 +178,14 @@ public class CreditAppDemo {
     headers.put(HttpHeader.HTTP_HEADER_CONTENT_TYPE, ContentType.CONTENT_TYPE_TEXT);
     request.setHeaders(headers);
     request.setStringBody(requestBody);
-    Client.execute(request);
+    Response response = Client.execute(request);
+    if (response.getStatusCode() == 200) {
+      System.out.println("decrypt response：" + AESUtil.decrypt(response.getBody(), key));
+    }
   }
 
   /**
-   * 
+   *
    * @Description : 推贷企贷参数
    * @return : String
    * @Creation Date : 2016年12月28日 下午4:37:50
@@ -175,10 +194,9 @@ public class CreditAppDemo {
   @SuppressWarnings("static-access")
   private String loanCpParam() {
     LoanParams loanParams = new LoanParams();
-    JSONObject json = new JSONObject();
     CpCust cp_cust = new CpCust();
     cp_cust.setNm("企业");
-    cp_cust.setCustId(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 18));
+    cp_cust.setCustId(UUID.randomUUID().toString().replaceAll("-", ""));
     cp_cust.setIsComb("Y");
     cp_cust.setBizRegNo(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 15));
     cp_cust.setIdNo(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 18));
@@ -218,23 +236,24 @@ public class CreditAppDemo {
     List<BizCertificateVO> bizCertificates = new ArrayList<>();
     BizCertificateVO bizCertificateVO = new BizCertificateVO();
     bizCertificateVO.setDtExpiry(new Date());
-    bizCertificateVO.setNo(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 20));// 20位经营许可证编号
+    bizCertificateVO
+        .setNo(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 20));// 20位经营许可证编号
     bizCertificateVO.setMtBizCertificateTypCd("00");// 经营许可证类型为：网络文化经营许可证
     bizCertificates.add(bizCertificateVO);
     cp_cust.setBizCertificates(bizCertificates);
 
     Map<Object, Object> jsonMap = new HashMap<>();
     jsonMap.put("企业实力", "世界500强");
-    cp_cust.setPortrait(json.toJSONString(jsonMap));
+    cp_cust.setPortrait(JSONObject.toJSONString(jsonMap));
     loanParams.setCp_cust(cp_cust);
     loanParams.setContacts(loanContactParam());
-    loanParams.setFac(loanFacParam());
+    loanParams.setFac(loanCpFacParam());
     loanParams.setCol(loanColParam());
-    return json.toJSONString(loanParams, SerializerFeature.WriteDateUseDateFormat);
+    return JSONObject.toJSONString(loanParams, SerializerFeature.WriteDateUseDateFormat);
   }
 
   /**
-   * 
+   *
    * @Description : 组装个人私营业主参数
    * @return : String
    * @Creation Date : 2016年12月28日 下午3:53:48
@@ -243,11 +262,10 @@ public class CreditAppDemo {
   @SuppressWarnings("static-access")
   private String loanCifIsBizEntity() {
     LoanParams loanParams = new LoanParams();
-    JSONObject json = new JSONObject();
     CsCust cs_cust = new CsCust();
     LoanBase base = new LoanBase();
     base.setNm("个人私营");
-    base.setCustId(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 18));
+    base.setCustId(UUID.randomUUID().toString().replaceAll("-", ""));
     base.setIdNo(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 18));
     base.setMtCityCd("110100");
     base.setDtIssue(new Date());
@@ -262,27 +280,26 @@ public class CreditAppDemo {
     base.setEmail("123@qq.com");
     base.setMobileNo("18888888888");
     base.setMtIndvMobileUsageStsCd("01");
-    base.setQq(12345);
-    base.setWeChat("1234");
+    base.setQq(934111111);
+    base.setWeChat("18888888888");
     base.setBankCard(new BigDecimal("1234556565"));
     base.setCreditCardLines(new BigDecimal("12345"));
     base.setLoanFixedYear(new BigDecimal("11"));
     base.setIsBizEntity("Y");
     Map<Object, Object> jsonMap = new HashMap<>();
     jsonMap.put("芝麻信用分", "750");
-    base.setPortrait(json.toJSONString(jsonMap));
+    base.setPortrait(JSONObject.toJSONString(jsonMap));
     cs_cust.setBase(base);
     cs_cust.setBusiness(loanIndvParam());
     loanParams.setCs_cust(cs_cust);
-    loanParams.setContacts(loanContactParam());
-    loanParams.setFac(loanFacParam());
+    loanParams.setFac(loanCsFacParam());
     loanParams.setCol(loanColParam());
 
-    return json.toJSONString(loanParams, SerializerFeature.WriteDateUseDateFormat);
+    return JSONObject.toJSONString(loanParams, SerializerFeature.WriteDateUseDateFormat);
   }
 
   /**
-   * 
+   *
    * @Description : 组装个人非私营业主参数
    * @return : String
    * @Creation Date : 2016年12月28日 下午3:47:46
@@ -291,11 +308,10 @@ public class CreditAppDemo {
   @SuppressWarnings("static-access")
   private String loanCifIsNotBizEntity() {
     LoanParams loanParams = new LoanParams();
-    JSONObject json = new JSONObject();
     CsCust cs_cust = new CsCust();
     LoanBase base = new LoanBase();
     base.setNm("个人非私营");
-    base.setCustId(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 18));
+    base.setCustId(UUID.randomUUID().toString().replaceAll("-", ""));
     base.setIdNo(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 18));
     base.setMtCityCd("110100");
     base.setDtIssue(new Date());
@@ -310,50 +326,73 @@ public class CreditAppDemo {
     base.setEmail("123@qq.com");
     base.setMobileNo("18888888888");
     base.setMtIndvMobileUsageStsCd("01");
-    base.setQq(12345);
-    base.setWeChat("1234");
+    base.setQq(934111111);
+    base.setWeChat("18888888888");
     base.setBankCard(new BigDecimal("1234556565"));
     base.setCreditCardLines(new BigDecimal("12345"));
     base.setLoanFixedYear(new BigDecimal("11"));
     base.setIsBizEntity("N");
     Map<Object, Object> jsonMap = new HashMap<>();
     jsonMap.put("芝麻信用分", "750");
-    base.setPortrait(json.toJSONString(jsonMap));
+    base.setPortrait(JSONObject.toJSONString(jsonMap));
     cs_cust.setEmploy(loanEmpParam());
     cs_cust.setBase(base);
     loanParams.setCs_cust(cs_cust);
-    loanParams.setContacts(loanContactParam());
-    loanParams.setFac(loanFacParam());
+    loanParams.setFac(loanCsFacParam());
     loanParams.setCol(loanColParam());
-    return json.toJSONString(loanParams, SerializerFeature.WriteDateUseDateFormat);
+    return JSONObject.toJSONString(loanParams, SerializerFeature.WriteDateUseDateFormat);
   }
 
   /**
-   * 
-   * @Description : 业务信息参数
+   *
+   * @Description : 个人业务信息参数
    * @return : LoanFac
    * @Creation Date : 2016年12月28日 下午3:16:22
    * @Author : bingo刑天
    */
-  private LoanFac loanFacParam() {
+  private LoanFac loanCsFacParam() {
     LoanFac loanFac = new LoanFac();
+    loanFac.setMtFacCd("P1011");
+    loanFac.setLmtAppr(new BigDecimal("1000000"));
+    loanFac.setTenureAppr("30");
+    loanFac.setMtTimeCd("Y");
+    loanFac.setMtRepymtTypCd("005");
+    loanFac.setIntRate(new BigDecimal("5.39"));
     loanFac.setIsRevolvingAllowed("Y");
-    loanFac.setLmtAppr(new BigDecimal("123"));
-    loanFac.setIntRate(new BigDecimal("123"));
-    loanFac.setMtRepymtTypCd("001");
-    loanFac.setTenureAppr("12");
     loanFac.setDtMaturity(new Date());
-    loanFac.setMtFacCd("P101");
     List<String> loanFacPurCds = new ArrayList<>();
-    loanFacPurCds.add("1001");
-    loanFacPurCds.add("1002");
-    loanFac.setMtTimeCd("D");
+    loanFacPurCds.add("P101");
+    loanFacPurCds.add("P104");
     loanFac.setMtFacPurCds(loanFacPurCds);
     return loanFac;
   }
 
   /**
-   * 
+   *
+   * @Description : 企业业务信息参数
+   * @return : LoanFac
+   * @Creation Date : 2016年12月28日 下午3:16:22
+   * @Author : bingo刑天
+   */
+  private LoanFac loanCpFacParam() {
+    LoanFac loanFac = new LoanFac();
+    loanFac.setMtFacCd("1010");
+    loanFac.setLmtAppr(new BigDecimal("10000000"));
+    loanFac.setTenureAppr("2");
+    loanFac.setMtTimeCd("Y");
+    loanFac.setMtRepymtTypCd("001");
+    loanFac.setIntRate(new BigDecimal("8.39"));
+    loanFac.setIsRevolvingAllowed("Y");
+    loanFac.setDtMaturity(new Date());
+    List<String> loanFacPurCds = new ArrayList<>();
+    loanFacPurCds.add("1001");
+    loanFacPurCds.add("1002");
+    loanFac.setMtFacPurCds(loanFacPurCds);
+    return loanFac;
+  }
+
+  /**
+   *
    * @Description : 职位信息参数
    * @return : LoanEmplymt
    * @Creation Date : 2016年12月28日 下午3:16:45
@@ -370,7 +409,7 @@ public class CreditAppDemo {
   }
 
   /**
-   * 
+   *
    * @Description : 联系人信息参数
    * @return : List<LoanContact>
    * @Creation Date : 2016年12月28日 下午3:16:57
@@ -389,7 +428,7 @@ public class CreditAppDemo {
   }
 
   /**
-   * 
+   *
    * @Description : 担保品信息参数
    * @return : List<LoanCol>
    * @Creation Date : 2016年12月28日 下午3:17:14
@@ -410,7 +449,7 @@ public class CreditAppDemo {
   }
 
   /**
-   * 
+   *
    * @Description :私营业主信息
    * @return : LoanIndv
    * @Creation Date : 2016年12月28日 下午3:30:33

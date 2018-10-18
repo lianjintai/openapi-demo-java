@@ -42,6 +42,7 @@ public class Constants {
   public static final String SPE5 = "?";
   //默认请求超时时间,单位毫秒
   public static final int DEFAULT_TIMEOUT = 1000;
+  public static final int DEFAULT_TIMEOUT_LONG = 30000;
   //参与签名的系统Header前缀,只有指定前缀的Header才会参与到签名中
   public static final String CA_HEADER_TO_SIGN_PREFIX_SYSTEM = "X-Ca-";
 }
