@@ -23,11 +23,11 @@ import org.junit.Test;
  *
  * @Project : dcms-openapi-demo
  * @Program Name : com.ljt.openapi.demo.demos.CreditAppCsFacConfDemo
- * @Description : 获取个贷产品配置
+ * @Description : 获取企贷贷产品配置
  * @author : zhouzb
  * @Creation Date : 2018年10月24日 上午10:51:41
  */
-public class CreditAppCsFacConfDemo {
+public class CreditAppCpFacConfDemo {
 
   /******************* 以下信息请换成您获取到的密钥 **************************/
   /**
@@ -49,9 +49,9 @@ public class CreditAppCsFacConfDemo {
   public void creditAppCsFacConfTest() throws Exception {
     // 构建请求体
     Map<String, String> map = new HashMap<>();
-    map.put("mt_fac_cd", "P1011");
+    map.put("mt_fac_cd", "1011");
     String requestBody = JSONObject.toJSONString(map);
-    String method="loan_app:cs_fac:config";
+    String method="loan_app:cp_fac:config";
     Request request = new Request();
     request.setMethod(Method.POST_STRING);
     /**

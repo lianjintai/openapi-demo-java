@@ -19,6 +19,8 @@ import com.ljt.openapi.demo.vo.DepositAcctTrxnVO;
 import com.ljt.openapi.demo.vo.FaDepositAcctTrxnParaVO;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -93,16 +95,18 @@ public class DepositAcctTrxnSaveDemo {
    * @author xyzhao
    * @date 2018年10月22日下午5:29:00
    */
-  public String depositAcctTrxnSaveParam() {
+  public String depositAcctTrxnSaveParam() throws ParseException {
     FaDepositAcctTrxnParaVO paraVO = new FaDepositAcctTrxnParaVO();
-    paraVO.setAppId("006c79ec84a5434893ea1cba3e459e3d");
+    paraVO.setAppId("c4d6f8cfabc547539c2ae4fb49130aff");
     paraVO.setMtFinInsttnCd("01");
     List<DepositAcctTrxnVO> items = new ArrayList<>();
+    SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
     for (int i = 0; i < 5; i++) {
       DepositAcctTrxnVO depositAcctTrxnVO = new DepositAcctTrxnVO();
       depositAcctTrxnVO.setAcctNo("6217002710000684878");
       depositAcctTrxnVO.setAcctNm("北京海恩炼鑫台信息技术有限责任公司");
-      depositAcctTrxnVO.setDtTrxn(new Date(2015,5,5+i));
+      Date date=dateFormat.parse("2015-05-"+(5+i));
+      depositAcctTrxnVO.setDtTrxn(date);
       depositAcctTrxnVO.setDebitAmount(new BigDecimal("2000.01"));
       depositAcctTrxnVO.setCreditAmount(new BigDecimal("0"));
       depositAcctTrxnVO.setBalance(new BigDecimal(2000.01*(i+1)+""));
@@ -110,7 +114,8 @@ public class DepositAcctTrxnSaveDemo {
       depositAcctTrxnVO.setToAcctNm("董强");
       depositAcctTrxnVO.setToAcctNo("622200020011111111");
       depositAcctTrxnVO.setToBankNm("华夏银行");
-      depositAcctTrxnVO.setDtAccounting(new Date(2015,10,10+i));
+      date=dateFormat.parse("2015-10-"+(10+i));
+      depositAcctTrxnVO.setDtAccounting(date);
       depositAcctTrxnVO.setSummary("自定义");
       depositAcctTrxnVO.setRemark("置换补贴");
       depositAcctTrxnVO.setSerialNo(UUID.randomUUID().toString().replaceAll("-", ""));

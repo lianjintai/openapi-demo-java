@@ -22,12 +22,12 @@ import org.junit.Test;
 /**
  *
  * @Project : dcms-openapi-demo
- * @Program Name : com.ljt.openapi.demo.demos.CreditAppCsFacConfDemo
- * @Description : 获取个贷产品配置
+ * @Program Name : com.ljt.openapi.demo.demos.LoanAppAutoActDemo
+ * @Description : 授信申请自动审批
  * @author : zhouzb
  * @Creation Date : 2018年10月24日 上午10:51:41
  */
-public class CreditAppCsFacConfDemo {
+public class LoanAppAutoActDemo {
 
   /******************* 以下信息请换成您获取到的密钥 **************************/
   /**
@@ -46,12 +46,12 @@ public class CreditAppCsFacConfDemo {
   /******************* 以上信息请换成您获取到的密钥 *************************/
 
   @Test
-  public void creditAppCsFacConfTest() throws Exception {
+  public void loanAppAutoActTest() throws Exception {
     // 构建请求体
     Map<String, String> map = new HashMap<>();
-    map.put("mt_fac_cd", "P1011");
+    map.put("app_id", "c4d6f8cfabc547539c2ae4fb49130aff");
     String requestBody = JSONObject.toJSONString(map);
-    String method="loan_app:cs_fac:config";
+    String method="loan_app:app:auto_act";
     Request request = new Request();
     request.setMethod(Method.POST_STRING);
     /**
