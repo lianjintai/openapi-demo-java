@@ -22,7 +22,7 @@ import org.junit.Test;
 /**
  *
  * @Project : dcms-openapi-demo
- * @Program Name : com.ljt.openapi.demo.demos.CreditAppCsFacConfDemo
+ * @Program Name : com.ljt.openapi.demo.demos.CreditAppCpFacConfDemo
  * @Description : 获取企贷贷产品配置
  * @author : zhouzb
  * @Creation Date : 2018年10月24日 上午10:51:41
