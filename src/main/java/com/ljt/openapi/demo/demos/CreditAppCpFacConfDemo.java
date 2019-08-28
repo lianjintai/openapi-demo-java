@@ -46,7 +46,7 @@ public class CreditAppCpFacConfDemo {
   /******************* 以上信息请换成您获取到的密钥 *************************/
 
   @Test
-  public void creditAppCsFacConfTest() throws Exception {
+  public void creditAppCpFacConfTest() throws Exception {
     // 构建请求体
     Map<String, String> map = new HashMap<>();
     map.put("mt_fac_cd", "1011");
